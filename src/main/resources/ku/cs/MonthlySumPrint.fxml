@@ -1,0 +1,162 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.Cursor?>
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.ToolBar?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.VBox?>
+<?import javafx.scene.shape.Rectangle?>
+<?import javafx.scene.text.Font?>
+
+<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="600.0" style="-fx-background-color: #696969;" xmlns="http://javafx.com/javafx/19" xmlns:fx="http://javafx.com/fxml/1" fx:controller="ku.cs.controllers.MonthlySumPrintController">
+   <children>
+      <Rectangle fill="WHITE" height="300.0" layoutX="50.0" layoutY="74.0" stroke="WHITE" strokeType="INSIDE" width="500.0" />
+      <Rectangle fill="WHITE" height="157.0" layoutX="307.0" layoutY="187.0" stroke="BLACK" strokeType="INSIDE" width="102.0" />
+      <Rectangle fill="WHITE" height="157.0" layoutX="408.0" layoutY="187.0" stroke="BLACK" strokeType="INSIDE" width="115.0" />
+      <Rectangle fill="WHITE" height="157.0" layoutX="78.0" layoutY="187.0" stroke="BLACK" strokeType="INSIDE" width="230.0" />
+      <Rectangle fill="WHITE" height="28.0" layoutX="78.0" layoutY="160.0" stroke="BLACK" strokeType="INSIDE" width="230.0" />
+      <Rectangle fill="WHITE" height="28.0" layoutX="408.0" layoutY="160.0" stroke="BLACK" strokeType="INSIDE" width="115.0" />
+      <Rectangle fill="WHITE" height="28.0" layoutX="307.0" layoutY="160.0" stroke="BLACK" strokeType="INSIDE" width="102.0" />
+      <Label alignment="CENTER" layoutX="158.0" layoutY="166.0" style="&#10;" text="รายการ" textAlignment="CENTER" wrapText="false">
+         <font>
+            <Font size="10.0" />
+         </font>
+      </Label>
+      <Label alignment="CENTER" layoutX="345.0" layoutY="168.0" style="&#10;" text="หน่วย" textAlignment="CENTER" wrapText="false">
+         <font>
+            <Font size="10.0" />
+         </font>
+      </Label>
+      <Label alignment="CENTER" layoutX="444.0" layoutY="168.0" style="&#10;" text="ยอดสุทธิ" textAlignment="CENTER" wrapText="false">
+         <font>
+            <Font size="10.0" />
+         </font>
+      </Label>
+      <Label layoutX="251.0" layoutY="90.0" text="ใบสรุปยอดประจำเดือน" />
+      <Label layoutX="80.0" layoutY="94.0" text="รักษิตาอพาร์ทเม้นท์">
+         <font>
+            <Font size="10.0" />
+         </font>
+      </Label>
+      <Label layoutX="79.0" layoutY="139.0" text="วันที่">
+         <font>
+            <Font size="10.0" />
+         </font>
+      </Label>
+      <Label fx:id="monthlySumDateLabel" layoutX="117.0" layoutY="139.0" text="MonthlySumDate">
+         <font>
+            <Font size="10.0" />
+         </font>
+      </Label>
+      <Label alignment="TOP_LEFT" layoutX="80.0" layoutY="107.0" prefHeight="13.0" prefWidth="219.0" text="39/42  ซอยร่วมสุข2 ถ.ไสวประชาราษฎร์ ">
+         <font>
+            <Font size="8.0" />
+         </font>
+      </Label>
+      <ToolBar prefHeight="40.0" prefWidth="600.0">
+        <items>
+            <Button mnemonicParsing="false" onAction="#cancelBtn" text="Cancel">
+               <cursor>
+                  <Cursor fx:constant="HAND" />
+               </cursor></Button>
+            <Button mnemonicParsing="false" prefHeight="26.0" prefWidth="55.0" text="Print">
+               <cursor>
+                  <Cursor fx:constant="HAND" />
+               </cursor></Button>
+        </items>
+      </ToolBar>
+      <VBox alignment="CENTER" layoutX="87.0" layoutY="188.0" prefHeight="157.0" prefWidth="219.0">
+         <children>
+            <Label prefHeight="26.0" prefWidth="195.0" style="&#10;" text="ค่าเช่าห้องทั้งหมด" textAlignment="CENTER" wrapText="false">
+               <font>
+                  <Font size="10.0" />
+               </font>
+            </Label>
+            <Label prefHeight="26.0" prefWidth="195.0" style="&#10;" text="ค่าน้ำทั้งหมด" textAlignment="CENTER" wrapText="false">
+               <font>
+                  <Font size="10.0" />
+               </font>
+            </Label>
+            <Label prefHeight="26.0" prefWidth="195.0" style="&#10;" text="ค่าไฟทั้งหมด" textAlignment="CENTER" wrapText="false">
+               <font>
+                  <Font size="10.0" />
+               </font>
+            </Label>
+            <Label prefHeight="26.0" prefWidth="195.0" style="&#10;" text="ยอดเงินรวม" textAlignment="CENTER" wrapText="false">
+               <font>
+                  <Font size="10.0" />
+               </font>
+            </Label>
+            <Label layoutX="22.0" layoutY="109.0" prefHeight="26.0" prefWidth="195.0" style="&#10;" text="ยอดชำระรวม" textAlignment="CENTER" wrapText="false">
+               <font>
+                  <Font size="10.0" />
+               </font>
+            </Label>
+            <Label layoutX="22.0" layoutY="119.0" prefHeight="26.0" prefWidth="195.0" style="&#10;" text="ยอดค้างชำระรวม" textAlignment="CENTER" wrapText="false">
+               <font>
+                  <Font size="10.0" />
+               </font>
+            </Label>
+         </children>
+      </VBox>
+      <VBox alignment="TOP_CENTER" layoutX="306.0" layoutY="188.0" prefHeight="157.0" prefWidth="102.0">
+         <children>
+            <Label fx:id="roomUnitAmountLabel" alignment="CENTER" prefHeight="26.0" prefWidth="83.0" style="&#10;" text="RoomUnitAmount" textAlignment="CENTER" wrapText="false">
+               <font>
+                  <Font size="10.0" />
+               </font>
+            </Label>
+            <Label fx:id="waterUnitAmountLabel" alignment="CENTER" prefHeight="26.0" prefWidth="83.0" style="&#10;" text="WaterUnitAmount" textAlignment="CENTER" wrapText="false">
+               <font>
+                  <Font size="10.0" />
+               </font>
+            </Label>
+            <Label fx:id="ElectUnitAmountLabel" alignment="CENTER" prefHeight="26.0" prefWidth="83.0" style="&#10;" text="ElectUnitAmount" textAlignment="CENTER" wrapText="false">
+               <font>
+                  <Font size="10.0" />
+               </font>
+            </Label>
+         </children>
+      </VBox>
+      <VBox alignment="CENTER" layoutX="408.0" layoutY="188.0" prefHeight="157.0" prefWidth="115.0">
+         <children>
+            <Label fx:id="roomPriceAmountLabel" alignment="CENTER" prefHeight="26.0" prefWidth="102.0" style="&#10;" text="RoompriceAmount" textAlignment="CENTER" wrapText="false">
+               <font>
+                  <Font size="10.0" />
+               </font>
+            </Label>
+            <Label fx:id="waterPriceAmountLabel" alignment="CENTER" prefHeight="26.0" prefWidth="102.0" style="&#10;" text="WaterPriceAmount" textAlignment="CENTER" wrapText="false">
+               <font>
+                  <Font size="10.0" />
+               </font>
+            </Label>
+            <Label fx:id="electPriceAmountLabel" alignment="CENTER" prefHeight="26.0" prefWidth="102.0" style="&#10;" text="ElectPriceAmount" textAlignment="CENTER" wrapText="false">
+               <font>
+                  <Font size="10.0" />
+               </font>
+            </Label>
+            <Label fx:id="roomTotalAmountLabel" alignment="CENTER" prefHeight="26.0" prefWidth="102.0" style="&#10;" text="RoomTotalAmount" textAlignment="CENTER" wrapText="false">
+               <font>
+                  <Font size="10.0" />
+               </font>
+            </Label>
+            <Label fx:id="totalPaymentLabel1" alignment="CENTER" layoutX="17.0" layoutY="109.0" prefHeight="26.0" prefWidth="102.0" style="&#10;" text="TotalPayment" textAlignment="CENTER" wrapText="false">
+               <font>
+                  <Font size="10.0" />
+               </font>
+            </Label>
+            <Label fx:id="totalOwedLabel" alignment="CENTER" layoutX="17.0" layoutY="119.0" prefHeight="26.0" prefWidth="102.0" style="&#10;" text="TotalOwed" textAlignment="CENTER" wrapText="false">
+               <font>
+                  <Font size="10.0" />
+               </font>
+            </Label>
+         </children>
+      </VBox>
+      <Label alignment="TOP_LEFT" layoutX="80.0" layoutY="118.0" prefHeight="13.0" prefWidth="219.0" text="ต.ลาดสวาย อ.ลำลูกกา จังหวัดปทุมธานี 12150">
+         <font>
+            <Font size="8.0" />
+         </font>
+      </Label>
+   </children>
+</AnchorPane>
