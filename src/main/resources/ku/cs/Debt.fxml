@@ -41,8 +41,9 @@
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.layout.Pane?>
 <?import javafx.scene.layout.VBox?>
+<?import javafx.scene.text.Font?>
 
-<VBox prefHeight="400.0" prefWidth="640.0" xmlns="http://javafx.com/javafx/16" xmlns:fx="http://javafx.com/fxml/1" fx:controller="ku.cs.controllers.DebtController">
+<VBox prefHeight="600.0" prefWidth="840.0" xmlns="http://javafx.com/javafx/19" xmlns:fx="http://javafx.com/fxml/1" fx:controller="ku.cs.controllers.DebtController">
   <children>
       <Pane prefHeight="39.0" prefWidth="641.0" style="-fx-background-color: #1E90FF#1E90FF;">
          <children>
@@ -50,7 +51,7 @@
                <graphic>
                   <ImageView fitHeight="15.0" fitWidth="15.0">
                      <image>
-                        <Image url="@../../Image/left.png" />
+                        <Image url="@../../Image/left-arrow-2.png" />
                      </image>
                      <cursor>
                         <Cursor fx:constant="HAND" />
@@ -61,17 +62,29 @@
                   <Cursor fx:constant="HAND" />
                </cursor>
             </Button>
-            <Label alignment="CENTER" layoutX="253.0" layoutY="2.0" prefHeight="35.0" prefWidth="134.0" style="&#10;" text="ตรวจสอบยอดค้างชำระ" textAlignment="CENTER" textFill="WHITE" wrapText="false" />
+            <Label alignment="CENTER" layoutX="331.0" layoutY="2.0" prefHeight="35.0" prefWidth="179.0" style="&#10;" text="ตรวจสอบยอดค้างชำระ" textAlignment="CENTER" textFill="WHITE" wrapText="false">
+               <font>
+                  <Font size="18.0" />
+               </font></Label>
          </children>
       </Pane>
     <AnchorPane maxHeight="-1.0" maxWidth="-1.0" prefHeight="-1.0" prefWidth="-1.0" style="-fx-background-color: ffffff;" VBox.vgrow="ALWAYS">
          <children>
-            <ListView fx:id="roomNumList" layoutX="13.0" layoutY="39.0" prefHeight="307.0" prefWidth="190.0" style="-fx-border-color: #000000;" />
-            <ListView fx:id="owedListView" layoutX="202.0" layoutY="39.0" prefHeight="307.0" prefWidth="219.0" style="-fx-border-color: #000000;" />
-            <ListView fx:id="depositListView" layoutX="420.0" layoutY="39.0" prefHeight="307.0" prefWidth="208.0" style="-fx-border-color: #000000;" />
-            <Label alignment="CENTER" layoutX="13.0" layoutY="14.0" prefHeight="26.0" prefWidth="190.0" style="-fx-border-color: #000000; -fx-background-color: #c8e5ff#c8e5ff;" text="เลขที่ห้อง" />
-            <Label alignment="CENTER" layoutX="202.0" layoutY="14.0" prefHeight="26.0" prefWidth="219.0" style="-fx-border-color: #000000; -fx-background-color: #c8e5ff#c8e5ff;" text="ยอดค้างชำระ" />
-            <Label alignment="CENTER" layoutX="420.0" layoutY="14.0" prefHeight="26.0" prefWidth="208.0" style="-fx-border-color: #000000; -fx-background-color: #c8e5ff#c8e5ff;" text="เงินประกัน" />
+            <ListView fx:id="roomNumList" layoutX="34.0" layoutY="68.0" prefHeight="465.0" prefWidth="241.0" style="-fx-border-color: #000000;" />
+            <ListView fx:id="owedListView" layoutX="274.0" layoutY="68.0" prefHeight="465.0" prefWidth="267.0" style="-fx-border-color: #000000;" />
+            <ListView fx:id="depositListView" layoutX="540.0" layoutY="68.0" prefHeight="465.0" prefWidth="267.0" style="-fx-border-color: #000000;" />
+            <Label alignment="CENTER" layoutX="34.0" layoutY="29.0" prefHeight="40.0" prefWidth="241.0" style="-fx-border-color: #000000; -fx-background-color: #c8e5ff#c8e5ff;" text="เลขที่ห้อง">
+               <font>
+                  <Font size="18.0" />
+               </font></Label>
+            <Label alignment="CENTER" layoutX="274.0" layoutY="29.0" prefHeight="40.0" prefWidth="267.0" style="-fx-border-color: #000000; -fx-background-color: #c8e5ff#c8e5ff;" text="ยอดค้างชำระ">
+               <font>
+                  <Font size="18.0" />
+               </font></Label>
+            <Label alignment="CENTER" layoutX="540.0" layoutY="29.0" prefHeight="40.0" prefWidth="267.0" style="-fx-border-color: #000000; -fx-background-color: #c8e5ff#c8e5ff;" text="เงินประกัน">
+               <font>
+                  <Font size="18.0" />
+               </font></Label>
          </children>
     </AnchorPane>
   </children>

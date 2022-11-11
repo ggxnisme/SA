@@ -71,7 +71,7 @@ public class CreateInvoiceController {
         try {
             Connection con = DBConnector.getConnection();
             Statement statement = con.createStatement();
-            ResultSet resultSet = statement.executeQuery("SELECT เลขที่ห้องเช่า FROM ลูกค้า");
+            ResultSet resultSet = statement.executeQuery("SELECT เลขที่ห้องเช่า FROM ห้องเช่า WHERE สถานะการเข้าอยู่ = 'ไม่ว่าง'");
             while (resultSet.next()) {
                 String เลขที่ห้องเช่า = resultSet.getString(1);
                 String listOut = เลขที่ห้องเช่า;
@@ -98,24 +98,24 @@ public class CreateInvoiceController {
             Connection con = DBConnector.getConnection();
             Statement statement1 = con.createStatement();
             Statement statement2 = con.createStatement();
-            Statement stetement3 = con.createStatement();
+            Statement statement3 = con.createStatement();
             ResultSet resultSet1 = statement1.executeQuery("SELECT เลขที่ห้องเช่า,ยอดค้างชำระ FROM ลูกค้า WHERE เลขที่ห้องเช่า = " + t1);
-            ResultSet resultSet2 = statement2.executeQuery("SELECT หน่วยน้ำ,หน่วยไฟ,ค่าน้ำ,ค่าไฟ FROM มิเตอร์ WHERE (เลขที่ห้องเช่า,วัน_เดือน_ปีที่จด) IN (SELECT เลขที่ห้องเช่า, MAX(วัน_เดือน_ปีที่จด) FROM มิเตอร์ WHERE เลขที่ห้องเช่า = "+t1+");");
-            ResultSet resultSet3 = stetement3.executeQuery("SELECT ค่าห้อง FROM ใบแจ้งหนี้ WHERE เลขที่ห้องเช่า = " + t1);
+            ResultSet resultSet2 = statement2.executeQuery("SELECT เลขหน่วยน้ำที่ใช้,เลขหน่วยไฟที่ใช้,ค่าน้ำ,ค่าไฟ FROM การใช้น้ำใช้ไฟ WHERE (เลขที่ห้องเช่า,วัน_เดือน_ปีที่จด) IN (SELECT เลขที่ห้องเช่า,MAX(วัน_เดือน_ปีที่จด) FROM การใช้น้ำใช้ไฟ WHERE เลขที่ห้องเช่า = "+t1+");");
+            ResultSet resultSet3 = statement3.executeQuery("SELECT ค่าห้อง FROM ห้องเช่า WHERE เลขที่ห้องเช่า = " + t1);
 
             while (resultSet1.next() & resultSet2.next() & resultSet3.next()) {
                 roomText.setText(resultSet1.getString("เลขที่ห้องเช่า"));
-                owedText.setText(String.format("%.2f",resultSet1.getFloat("ยอดค้างชำระ")));
-                owedTotalText.setText(String.format("%.2f",resultSet1.getFloat("ยอดค้างชำระ")));
-                waterUnitText.setText(resultSet2.getString("หน่วยน้ำ"));
-                elecUnitText.setText(resultSet2.getString("หน่วยไฟ"));
-                waterPriceTotalText.setText(String.format("%.2f",resultSet2.getFloat("ค่าน้ำ")));
-                elecPriceTotalText.setText(String.format("%.2f",resultSet2.getFloat("ค่าไฟ")));
-                roomPriceText.setText(String.format("%.2f",resultSet3.getFloat("ค่าห้อง")));
-                roomPriceTotalText.setText(String.format("%.2f",resultSet3.getFloat("ค่าห้อง")));
+                owedText.setText(String.format("%,.2f",resultSet1.getFloat("ยอดค้างชำระ")));
+                owedTotalText.setText(String.format("%,.2f",resultSet1.getFloat("ยอดค้างชำระ")));
+                waterUnitText.setText(resultSet2.getString("เลขหน่วยน้ำที่ใช้"));
+                elecUnitText.setText(resultSet2.getString("เลขหน่วยไฟที่ใช้"));
+                waterPriceTotalText.setText(String.format("%,.2f",resultSet2.getFloat("ค่าน้ำ")));
+                elecPriceTotalText.setText(String.format("%,.2f",resultSet2.getFloat("ค่าไฟ")));
+                roomPriceText.setText(String.format("%,.2f",resultSet3.getFloat("ค่าห้อง")));
+                roomPriceTotalText.setText(String.format("%,.2f",resultSet3.getFloat("ค่าห้อง")));
                 statement1.close();
                 statement2.close();
-                stetement3.close();
+                statement3.close();
                 con.close();
             }
         } catch (Exception e) {
@@ -132,39 +132,29 @@ public class CreateInvoiceController {
         if (roomText.getText().equals("RoomNumber")) {
             errorLabel.setText("กรุณาเลือกห้อง");
         }
-        else if ((invoiceNumberTextField.getText()).isEmpty()) {
-            errorLabel.setText("กรุณากรอกเลขที่ใบแจ้งหนี้");
-        } else if (datePicker.getValue() == null) {
+        else if (datePicker.getValue() == null) {
             errorLabel.setText("กรุณาระบุวันที่");
         }
         else {
             try {
-                Long.parseLong(invoiceNumberTextField.getText());
-                if (Long.parseLong(invoiceNumberTextField.getText()) < 0) {
-                    errorLabel.setText("กรุณากรอกเลขที่ใบแจ้งหนี้ให้ถูกต้อง");
-                }
-                try {
-                    long invoiceNumber = Long.parseLong(invoiceNumberTextField.getText());
-                    float roomPrice = Float.parseFloat(roomPriceTotalText.getText());
-                    float waterPrice = Float.parseFloat(waterPriceTotalText.getText());
-                    float electPrice = Float.parseFloat(elecPriceTotalText.getText());
-                    float owedPrice = Float.parseFloat(owedTotalText.getText());
-                    float calInvoice = calInvoice(roomPrice, waterPrice, electPrice, owedPrice);
-                    totalPriceText.setText(String.format("%.2f",calInvoice));
+                invoiceNumberTextField.setText(roomText.getText()+genInvoiceNum(datePicker.getEditor().getText()));
+                long invoiceNumber = Long.parseLong(roomText.getText()+genInvoiceNum(datePicker.getEditor().getText()));
+                float roomPrice = Float.parseFloat(roomPriceTotalText.getText());
+                float waterPrice = Float.parseFloat(waterPriceTotalText.getText());
+                float electPrice = Float.parseFloat(elecPriceTotalText.getText());
+                float owedPrice = Float.parseFloat(owedTotalText.getText());
+                float calInvoice = calInvoice(roomPrice, waterPrice, electPrice, owedPrice);
+                totalPriceText.setText(String.format("%,.2f",calInvoice));
 
-                    addCalInvoiceToDB(Integer.parseInt(roomText.getText()), invoiceNumber, datePicker.getValue() , roomPrice, calInvoice, 0, 0);
+                addCalInvoiceToDB(Integer.parseInt(roomText.getText()), invoiceNumber, datePicker.getValue(), calInvoice, 0, 0);
 
-                    calculateSuccessfulPane.setOpacity(1);
-                    calculateSuccessfulPane.setDisable(false);
-                    effect.fadeInPage(calculateSuccessfulPane);
-                    errorLabel.setText("");
-                } catch (Exception e) {
-                    System.out.println(e);
-                }
-            } catch (NumberFormatException e) {
-                errorLabel.setText("กรุณาใส่ตัวเลข");
+                calculateSuccessfulPane.setOpacity(1);
+                calculateSuccessfulPane.setDisable(false);
+                effect.fadeInPage(calculateSuccessfulPane);
+                errorLabel.setText("");
+            } catch (Exception e) {
+                System.out.println(e);
             }
-
         }
         effect.fadeOutLabelEffect(errorLabel, 3);
     }
@@ -175,25 +165,24 @@ public class CreateInvoiceController {
         calculateSuccessfulPane.setDisable(true);
     }
 
-    public void addCalInvoiceToDB(int roomNum, long invoiceNum, LocalDate date, float roomPrice, float calInvoice, float customerPaid, int paidStatus) {
+    public void addCalInvoiceToDB(int roomNum, long invoiceNum, LocalDate date, float calInvoice, float paid, int paidStatus) {
 
         try {
             Connection con = DBConnector.getConnection();
             Statement statement = con.createStatement();
-            String sql = "INSERT INTO ใบแจ้งหนี้(เลขที่ห้องเช่า, เลขที่ใบแจ้งหนี้, วัน_เดือน_ปีที่ออกใบแจ้งหนี้, ค่าห้อง, ยอดเงินสุทธิ, ยอดเงินที่ชำระ, สถานะการชำระเงิน)" +
-                    "VALUES (?, ?, ?, ?, ?, ?, ?)";
+            String sql = "INSERT INTO ใบแจ้งหนี้(เลขที่ห้องเช่า, เลขที่ใบแจ้งหนี้, วัน_เดือน_ปีที่ออกใบแจ้งหนี้, ยอดเงินสุทธิ, ยอดเงินที่ชำระ, สถานะการชำระเงิน)" +
+                    "VALUES (?, ?, ?, ?, ?, ?)";
             PreparedStatement preparedStatement = con.prepareStatement(sql);
             preparedStatement.setInt(1, roomNum);
             preparedStatement.setLong(2, invoiceNum);
             preparedStatement.setDate(3, Date.valueOf(date));
-            preparedStatement.setFloat(4, roomPrice);
-            preparedStatement.setFloat(5, calInvoice);
-            preparedStatement.setFloat(6, customerPaid);
-            preparedStatement.setInt(7, paidStatus);
+            preparedStatement.setFloat(4, calInvoice);
+            preparedStatement.setFloat(5,paid);
+            preparedStatement.setInt(6, paidStatus);
 
             int addedRows = preparedStatement.executeUpdate();
             if (addedRows > 0) {
-                invoice = new Invoice(roomNum, invoiceNum, date, roomPrice, calInvoice, customerPaid, paidStatus);
+                invoice = new Invoice(roomNum, invoiceNum, date, calInvoice, paid, paidStatus);
             }
             statement.close();
             con.close();
@@ -214,36 +203,19 @@ public class CreateInvoiceController {
         if (roomText.getText().equals("RoomNumber")) {
             errorLabel.setText("กรุณาเลือกห้อง");
         }
-        if ((invoiceNumberTextField.getText()).isEmpty()) {
-            errorLabel.setText("กรุณากรอกเลขที่ใบแจ้งหนี้");
-        } else if (Long.parseLong(invoiceNumberTextField.getText()) < 0) {
-            errorLabel.setText("กรุณากรอกเลขที่ใบแจ้งหนี้ให้ถูกต้อง");
-            ;
-        } else if (datePicker.getValue() == null) {
+        else if (datePicker.getValue() == null) {
             errorLabel.setText("กรุณาระบุวันที่");
-        } else {
-            try {
-                long invoiceNumber = Long.parseLong(invoiceNumberTextField.getText());
-                float roomPrice = Float.parseFloat(roomPriceTotalText.getText());
-                float waterPrice = Float.parseFloat(waterPriceTotalText.getText());
-                float electPrice = Float.parseFloat(elecPriceTotalText.getText());
-                float owedPrice = Float.parseFloat(owedTotalText.getText());
-                float calInvoice = calInvoice(roomPrice, waterPrice, electPrice, owedPrice);
-                totalPriceText.setText(Float.toString(calInvoice));
-                DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd/MM/YYYY");
-                String date = datePicker.getValue().format(formatter);
-
-//            addCalInvoiceToDB(Integer.parseInt(roomText.getText()), invoiceNumber, date, roomPrice, calInvoice, 0, 0, "");
+        }
+        else if (totalPriceText.getText().equals("")) {
+            errorLabel.setText("กรุณากดคำนวณ");
+        }
+        else {
                 try {
                     FXRouter.goTo("Invoice", invoice);
                 } catch (Exception e) {
                     System.err.println("ไปที่หน้า Invoice ไม่ได้");
                     System.err.println("ตรวจสอบการกำหนด route");
                 }
-            } catch (NumberFormatException e) {
-                errorLabel.setText("กรุณาใส่ตัวเลข");
-            }
-
         } effect.fadeOutLabelEffect(errorLabel, 3);
     }
 
@@ -252,8 +224,13 @@ public class CreateInvoiceController {
         try {
             FXRouter.goTo ( "Home" );
         } catch (IOException e) {
-            System.err.println ( "ไปที่หน้า Home ไม่ด้" );
+            System.err.println ( "ไปที่หน้า Home ไม่ได้" );
         }
+    }
+
+    public String genInvoiceNum(String date) {
+        String[] splDate = date.split("/", 3);
+        return splDate[0]+splDate[1]+splDate[2];
     }
 
 }

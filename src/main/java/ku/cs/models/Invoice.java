@@ -8,30 +8,17 @@ public class Invoice {
     private int roomNum;
     private long invoiceNum;
     private LocalDate invoiceDate;
-    private float roomPrice;
     private float totalPrice;
-    private float customerPaid;
+
+    private float paid;
     private int paidStatus;
-    private LocalDate receiptDate;
 
-    public Invoice(int roomNum, long invoiceNum, LocalDate invoiceDate, float roomPrice, float totalPrice, float customerPaid, int paidStatus, LocalDate receiptDate) {
+    public Invoice(int roomNum, long invoiceNum, LocalDate invoiceDate, float totalPrice, float paid, int paidStatus) {
         this.roomNum = roomNum;
         this.invoiceNum = invoiceNum;
         this.invoiceDate = invoiceDate;
-        this.roomPrice = roomPrice;
         this.totalPrice = totalPrice;
-        this.customerPaid = customerPaid;
-        this.paidStatus = paidStatus;
-        this.receiptDate = receiptDate;
-    }
-
-    public Invoice(int roomNum, long invoiceNum, LocalDate invoiceDate, float roomPrice, float totalPrice, float customerPaid, int paidStatus) {
-        this.roomNum = roomNum;
-        this.invoiceNum = invoiceNum;
-        this.invoiceDate = invoiceDate;
-        this.roomPrice = roomPrice;
-        this.totalPrice = totalPrice;
-        this.customerPaid = customerPaid;
+        this.paid = paid;
         this.paidStatus = paidStatus;
     }
 
@@ -40,7 +27,11 @@ public class Invoice {
         this.paidStatus = paidStatus;
     }
 
-    public String getRoomNum() {
+    public int getRoomNum() {
+        return roomNum;
+    }
+
+    public String getRoomNumStr() {
         return String.valueOf(roomNum);
     }
 
@@ -48,27 +39,22 @@ public class Invoice {
         return invoiceNum;
     }
 
-    public LocalDate getInvoiceDate() {
-        return invoiceDate;
+    public String getInvoiceNumStr() {
+        return String.valueOf(invoiceNum);
     }
 
-    public float getRoomPrice() {
-        return roomPrice;
+    public LocalDate getInvoiceDate() {
+        return invoiceDate;
     }
 
     public float getTotalPrice() {
         return totalPrice;
     }
 
-    public float getCustomerPaid() {
-        return customerPaid;
-    }
-
     public int getPaidStatus() {
         return paidStatus;
     }
 
-    public LocalDate getReceiptDate() {
-        return receiptDate;
-    }
+
+
 }

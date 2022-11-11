@@ -46,7 +46,7 @@
 <?import javafx.scene.shape.Rectangle?>
 <?import javafx.scene.text.Font?>
 
-<VBox prefHeight="400.0" prefWidth="640.0" xmlns="http://javafx.com/javafx/19" xmlns:fx="http://javafx.com/fxml/1" fx:controller="ku.cs.controllers.PaymentController">
+<VBox prefHeight="600.0" prefWidth="840.0" xmlns="http://javafx.com/javafx/19" xmlns:fx="http://javafx.com/fxml/1" fx:controller="ku.cs.controllers.PaymentController">
   <children>
       <Pane prefHeight="39.0" prefWidth="641.0" style="-fx-background-color: #1E90FF#1E90FF;">
          <children>
@@ -54,7 +54,7 @@
                <graphic>
                   <ImageView fitHeight="15.0" fitWidth="15.0">
                      <image>
-                        <Image url="@../../Image/left.png" />
+                        <Image url="@../../Image/left-arrow-2.png" />
                      </image>
                      <cursor>
                         <Cursor fx:constant="HAND" />
@@ -65,47 +65,116 @@
                   <Cursor fx:constant="HAND" />
                </cursor>
             </Button>
-            <Label alignment="CENTER" layoutX="254.0" layoutY="2.0" prefHeight="35.0" prefWidth="134.0" style="&#10;" text="บันทึกยอดชำระ" textAlignment="CENTER" textFill="WHITE" wrapText="false" />
+            <Button alignment="CENTER_RIGHT" contentDisplay="RIGHT" layoutX="692.0" layoutY="-2.0" mnemonicParsing="false" onAction="#receiptBtn" style="-fx-background-color: #1E90FF#1E90FF #1E90FF#1E90FF;" text="ใบเสร็จรับเงิน" textFill="WHITE">
+               <graphic>
+                  <ImageView fitHeight="30.0" fitWidth="41.0" pickOnBounds="true" preserveRatio="true">
+                     <image>
+                        <Image url="@../../Image/clipboard-2.png" />
+                     </image>
+                  </ImageView>
+               </graphic>
+               <font>
+                  <Font size="18.0" />
+               </font>
+               <cursor>
+                  <Cursor fx:constant="HAND" />
+               </cursor>
+            </Button>
+            <Label alignment="CENTER" layoutX="353.0" layoutY="2.0" prefHeight="35.0" prefWidth="134.0" style="&#10;" text="บันทึกยอดชำระ" textAlignment="CENTER" textFill="WHITE" wrapText="false">
+               <font>
+                  <Font size="18.0" />
+               </font></Label>
          </children>
       </Pane>
     <AnchorPane maxHeight="-1.0" maxWidth="-1.0" prefHeight="-1.0" prefWidth="-1.0" style="-fx-background-color: ffffff;" VBox.vgrow="ALWAYS">
          <children>
-            <Rectangle accessibleRole="PARENT" arcHeight="5.0" arcWidth="5.0" fill="#ffffff00" height="61.0" layoutX="15.0" layoutY="23.0" stroke="DODGERBLUE" strokeType="INSIDE" width="610.0" />
-            <Label alignment="CENTER" layoutX="29.0" layoutY="15.0" prefHeight="17.0" prefWidth="83.0" style="-fx-background-color: ffffff;" text="ค้นหาเลขที่ห้อง" textAlignment="CENTER" />
-            <Label layoutX="37.0" layoutY="47.0" text="เลขที่ห้องเช่า" />
-            <TextField fx:id="roomTextField" layoutX="112.0" layoutY="43.0" prefHeight="26.0" prefWidth="116.0" />
-            <Button layoutX="242.0" layoutY="43.0" mnemonicParsing="false" onAction="#roomSearchBtn" prefHeight="26.0" prefWidth="68.0" style="-fx-background-color: #1E90FF#1E90FF;" text="ค้นหา" textFill="WHITE">
+            <Rectangle accessibleRole="PARENT" arcHeight="5.0" arcWidth="5.0" fill="#ffffff00" height="86.0" layoutX="15.0" layoutY="23.0" stroke="DODGERBLUE" strokeType="INSIDE" width="808.0" />
+            <Label alignment="CENTER" layoutX="29.0" layoutY="15.0" prefHeight="23.0" prefWidth="116.0" style="-fx-background-color: ffffff;" text="ค้นหาเลขที่ห้อง" textAlignment="CENTER">
+               <font>
+                  <Font size="18.0" />
+               </font></Label>
+            <Label layoutX="40.0" layoutY="59.0" text="เลขที่ห้องเช่า">
+               <font>
+                  <Font size="18.0" />
+               </font></Label>
+            <TextField fx:id="roomTextField" layoutX="142.0" layoutY="53.0" prefHeight="35.0" prefWidth="165.0">
+               <font>
+                  <Font size="18.0" />
+               </font></TextField>
+            <Button layoutX="326.0" layoutY="52.0" mnemonicParsing="false" onAction="#roomSearchBtn" prefHeight="26.0" prefWidth="68.0" style="-fx-background-color: #1E90FF#1E90FF;" text="ค้นหา" textFill="WHITE">
                <cursor>
                   <Cursor fx:constant="HAND" />
-               </cursor></Button>
-            <Label layoutX="322.0" layoutY="47.0" text="ยอดชำระ" />
-            <Rectangle accessibleRole="PARENT" arcHeight="5.0" arcWidth="5.0" fill="#ffffff00" height="248.0" layoutX="15.0" layoutY="96.0" stroke="DODGERBLUE" strokeType="INSIDE" width="610.0" />
-            <Rectangle fill="WHITE" height="38.0" layoutX="326.0" layoutY="145.0" stroke="BLACK" strokeType="INSIDE" width="89.0" />
-            <Rectangle fill="WHITE" height="38.0" layoutX="29.0" layoutY="145.0" stroke="BLACK" strokeType="INSIDE" width="98.0" />
-            <Rectangle fill="WHITE" height="38.0" layoutX="414.0" layoutY="145.0" stroke="BLACK" strokeType="INSIDE" width="98.0" />
-            <Rectangle fill="WHITE" height="38.0" layoutX="126.0" layoutY="145.0" stroke="BLACK" strokeType="INSIDE" width="201.0" />
-            <Rectangle fill="#c8e5ff" height="28.0" layoutX="126.0" layoutY="119.0" stroke="BLACK" strokeType="INSIDE" width="201.0" />
-            <Rectangle fill="#c8e5ff" height="28.0" layoutX="326.0" layoutY="119.0" stroke="BLACK" strokeType="INSIDE" width="89.0" />
-            <Rectangle fill="#c8e5ff" height="28.0" layoutX="414.0" layoutY="119.0" stroke="BLACK" strokeType="INSIDE" width="98.0" />
-            <Rectangle fill="#c8e5ff" height="28.0" layoutX="29.0" layoutY="119.0" stroke="BLACK" strokeType="INSIDE" width="98.0" />
-            <Label alignment="CENTER" layoutX="193.0" layoutY="125.0" style="&#10;" text="ชื่อ-นามสกุล" textAlignment="CENTER" wrapText="false" />
-            <Label alignment="CENTER" layoutX="347.0" layoutY="125.0" style="&#10;" text="ค้างชำระ" textAlignment="CENTER" wrapText="false" />
-            <Label alignment="CENTER" layoutX="53.0" layoutY="125.0" style="&#10;" text="เลขที่ห้อง" textAlignment="CENTER" wrapText="false" />
-            <Label alignment="CENTER" layoutX="450.0" layoutY="125.0" style="&#10;" text="ชำระ" textAlignment="CENTER" wrapText="false" />
-            <TextField fx:id="paidTextField" layoutX="385.0" layoutY="43.0" prefHeight="26.0" prefWidth="116.0" />
-            <Button layoutX="521.0" layoutY="43.0" mnemonicParsing="false" onAction="#saveBtn" prefHeight="26.0" prefWidth="68.0" style="-fx-background-color: #1E90FF#1E90FF;" text="บันทึก" textFill="WHITE">
+               </cursor>
+               <font>
+                  <Font size="18.0" />
+               </font></Button>
+            <Label layoutX="442.0" layoutY="59.0" text="ยอดชำระ">
+               <font>
+                  <Font size="18.0" />
+               </font></Label>
+            <Rectangle accessibleRole="PARENT" arcHeight="5.0" arcWidth="5.0" fill="#ffffff00" height="414.0" layoutX="14.0" layoutY="128.0" stroke="DODGERBLUE" strokeType="INSIDE" width="808.0" />
+            <Rectangle fill="WHITE" height="45.0" layoutX="388.0" layoutY="185.0" stroke="BLACK" strokeType="INSIDE" width="134.0" />
+            <Rectangle fill="WHITE" height="45.0" layoutX="28.0" layoutY="185.0" stroke="BLACK" strokeType="INSIDE" width="98.0" />
+            <Rectangle fill="WHITE" height="45.0" layoutX="521.0" layoutY="185.0" stroke="BLACK" strokeType="INSIDE" width="134.0" />
+            <Rectangle fill="WHITE" height="45.0" layoutX="125.0" layoutY="185.0" stroke="BLACK" strokeType="INSIDE" width="264.0" />
+            <Rectangle fill="#c8e5ff" height="35.0" layoutX="125.0" layoutY="151.0" stroke="BLACK" strokeType="INSIDE" width="264.0" />
+            <Rectangle fill="#c8e5ff" height="35.0" layoutX="388.0" layoutY="151.0" stroke="BLACK" strokeType="INSIDE" width="134.0" />
+            <Rectangle fill="#c8e5ff" height="35.0" layoutX="521.0" layoutY="151.0" stroke="BLACK" strokeType="INSIDE" width="134.0" />
+            <Rectangle fill="#c8e5ff" height="35.0" layoutX="28.0" layoutY="151.0" stroke="BLACK" strokeType="INSIDE" width="98.0" />
+            <Label alignment="CENTER" layoutX="207.0" layoutY="157.0" style="&#10;" text="ชื่อ-นามสกุล" textAlignment="CENTER" wrapText="false">
+               <font>
+                  <Font size="18.0" />
+               </font></Label>
+            <Label alignment="CENTER" layoutX="422.0" layoutY="157.0" style="&#10;" text="ค้างชำระ" textAlignment="CENTER" wrapText="false">
+               <font>
+                  <Font size="18.0" />
+               </font></Label>
+            <Label alignment="CENTER" layoutX="43.0" layoutY="157.0" style="&#10;" text="เลขที่ห้อง" textAlignment="CENTER" wrapText="false">
+               <font>
+                  <Font size="18.0" />
+               </font></Label>
+            <Label alignment="CENTER" layoutX="570.0" layoutY="157.0" style="&#10;" text="ชำระ" textAlignment="CENTER" wrapText="false">
+               <font>
+                  <Font size="18.0" />
+               </font></Label>
+            <TextField fx:id="paidTextField" layoutX="527.0" layoutY="53.0" prefHeight="35.0" prefWidth="165.0">
+               <font>
+                  <Font size="18.0" />
+               </font></TextField>
+            <Button layoutX="715.0" layoutY="52.0" mnemonicParsing="false" onAction="#saveBtn" prefHeight="35.0" prefWidth="77.0" style="-fx-background-color: #1E90FF#1E90FF;" text="บันทึก" textFill="WHITE">
                <cursor>
                   <Cursor fx:constant="HAND" />
-               </cursor></Button>
-            <Rectangle fill="WHITE" height="38.0" layoutX="511.0" layoutY="145.0" stroke="BLACK" strokeType="INSIDE" width="98.0" />
-            <Rectangle fill="#c8e5ff" height="28.0" layoutX="511.0" layoutY="119.0" stroke="BLACK" strokeType="INSIDE" width="98.0" />
-            <Label alignment="CENTER" layoutX="539.0" layoutY="125.0" style="&#10;" text="คงเหลือ" textAlignment="CENTER" wrapText="false" />
-            <Label fx:id="roomNumberLabel" layoutX="40.0" layoutY="156.0" style="&#10;" textAlignment="CENTER" wrapText="false" />
-            <Label fx:id="nameLabel" layoutX="133.0" layoutY="156.0" prefHeight="17.0" prefWidth="187.0" style="&#10;" textAlignment="CENTER" wrapText="false" />
-            <Label fx:id="totalPriceLabel" alignment="CENTER" layoutX="332.0" layoutY="156.0" prefHeight="17.0" prefWidth="77.0" style="&#10;" textAlignment="CENTER" wrapText="false" />
-            <Label fx:id="paidLabel" alignment="CENTER" layoutX="425.0" layoutY="156.0" prefHeight="17.0" prefWidth="77.0" style="&#10;" textAlignment="CENTER" wrapText="false" />
-            <Label fx:id="balanceLabel" alignment="CENTER" layoutX="522.0" layoutY="156.0" prefHeight="17.0" prefWidth="77.0" style="&#10;" textAlignment="CENTER" wrapText="false" />
-            <Pane fx:id="saveSuccessfulPane" layoutX="214.0" layoutY="122.0" prefHeight="86.0" prefWidth="217.0" style="-fx-background-color: #FFFFFF;" styleClass="product-card-background" stylesheets="@../../styles/styles.css">
+               </cursor>
+               <font>
+                  <Font size="18.0" />
+               </font></Button>
+            <Rectangle fill="WHITE" height="45.0" layoutX="654.0" layoutY="185.0" stroke="BLACK" strokeType="INSIDE" width="134.0" />
+            <Rectangle fill="#c8e5ff" height="35.0" layoutX="654.0" layoutY="151.0" stroke="BLACK" strokeType="INSIDE" width="134.0" />
+            <Label alignment="CENTER" layoutX="690.0" layoutY="157.0" style="&#10;" text="คงเหลือ" textAlignment="CENTER" wrapText="false">
+               <font>
+                  <Font size="18.0" />
+               </font></Label>
+            <Label fx:id="roomNumberLabel" layoutX="53.0" layoutY="196.0" prefHeight="27.0" prefWidth="45.0" style="&#10;" textAlignment="CENTER" wrapText="false">
+               <font>
+                  <Font size="18.0" />
+               </font></Label>
+            <Label fx:id="nameLabel" layoutX="135.0" layoutY="196.0" prefHeight="23.0" prefWidth="245.0" style="&#10;" textAlignment="CENTER" wrapText="false">
+               <font>
+                  <Font size="18.0" />
+               </font></Label>
+            <Label fx:id="totalPriceLabel" alignment="CENTER" layoutX="397.0" layoutY="196.0" prefHeight="23.0" prefWidth="116.0" style="&#10;" textAlignment="CENTER" wrapText="false">
+               <font>
+                  <Font size="18.0" />
+               </font></Label>
+            <Label fx:id="paidLabel" alignment="CENTER" layoutX="530.0" layoutY="196.0" prefHeight="23.0" prefWidth="116.0" style="&#10;" textAlignment="CENTER" wrapText="false">
+               <font>
+                  <Font size="18.0" />
+               </font></Label>
+            <Label fx:id="balanceLabel" alignment="CENTER" layoutX="663.0" layoutY="196.0" prefHeight="23.0" prefWidth="116.0" style="&#10;" textAlignment="CENTER" wrapText="false">
+               <font>
+                  <Font size="18.0" />
+               </font></Label>
+            <Pane fx:id="saveSuccessfulPane" layoutX="310.0" layoutY="249.0" prefHeight="86.0" prefWidth="217.0" style="-fx-background-color: #FFFFFF;" styleClass="product-card-background" stylesheets="@../../styles/styles.css">
                <children>
                   <Label alignment="CENTER" layoutX="51.0" layoutY="30.0" prefHeight="27.0" prefWidth="116.0" text="Save Success" textAlignment="CENTER">
                      <font>
@@ -129,7 +198,10 @@
                   </DropShadow>
                </effect>
             </Pane>
-            <Label fx:id="errorLabel" layoutX="29.0" layoutY="228.0" prefHeight="18.0" prefWidth="226.0" textAlignment="CENTER" textFill="RED" />
+            <Label fx:id="errorLabel" alignment="CENTER" layoutX="305.0" layoutY="356.0" prefHeight="18.0" prefWidth="226.0" textAlignment="CENTER" textFill="RED">
+               <font>
+                  <Font size="18.0" />
+               </font></Label>
          </children>
     </AnchorPane>
   </children>

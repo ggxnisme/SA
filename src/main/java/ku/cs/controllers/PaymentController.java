@@ -11,10 +11,8 @@ import ku.cs.services.DBConnector;
 import ku.cs.services.Effect;
 
 import java.io.IOException;
-import java.sql.Connection;
-import java.sql.PreparedStatement;
-import java.sql.ResultSet;
-import java.sql.Statement;
+import java.sql.*;
+import java.text.NumberFormat;
 import java.util.concurrent.Callable;
 
 public class PaymentController {
@@ -74,10 +72,10 @@ public class PaymentController {
                         nameLabel.setText(resultSet1.getString("ชื่อ_นามสกุล"));
                         lastPaid = resultSet.getFloat("ยอดเงินที่ชำระ");
                         if (resultSet.getInt("สถานะการชำระเงิน") == 0){
-                            totalPriceLabel.setText(String.format("%.2f", resultSet.getFloat("ยอดเงินสุทธิ")));
+                            totalPriceLabel.setText(String.format("%,.2f", resultSet.getFloat("ยอดเงินสุทธิ")));
                         }
                         else {
-                            totalPriceLabel.setText(String.format("%.2f", resultSet1.getFloat("ยอดค้างชำระ")));
+                            totalPriceLabel.setText(String.format("%,.2f", resultSet1.getFloat("ยอดค้างชำระ")));
                         }
                         paidLabel.setText("0.00");
                         balanceLabel.setText("0.00");
@@ -103,10 +101,7 @@ public class PaymentController {
         }
         else {
             try {
-                Integer.parseInt(paidTextField.getText());
-                if (Integer.parseInt(paidTextField.getText()) < 0){
-                    errorLabel.setText("กรุณากรอกข้อมูลให้ถูกต้อง");
-                }
+                Float.parseFloat(paidTextField.getText());
                 try {
                     Connection con = DBConnector.getConnection();
                     PreparedStatement preparedStatement = con.prepareStatement("UPDATE ใบแจ้งหนี้ SET ยอดเงินที่ชำระ = ?, สถานะการชำระเงิน = ? WHERE (เลขที่ห้องเช่า,วัน_เดือน_ปีที่ออกใบแจ้งหนี้) IN ( SELECT เลขที่ห้องเช่า, MAX(วัน_เดือน_ปีที่ออกใบแจ้งหนี้) FROM ใบแจ้งหนี้ WHERE เลขที่ห้องเช่า = " + roomTextField.getText() + ");");
@@ -116,8 +111,8 @@ public class PaymentController {
                     preparedStatement1.setFloat(1, calPaid(Float.parseFloat(paidTextField.getText())));
                     preparedStatement.executeUpdate();
                     preparedStatement1.executeUpdate();
-                    paidLabel.setText(String.format("%.2f", Float.parseFloat(paidTextField.getText())));
-                    balanceLabel.setText(String.format("%.2f",calPaid(Float.parseFloat(paidTextField.getText()))));
+                    paidLabel.setText(String.format("%,.2f", Float.parseFloat(paidTextField.getText())));
+                    balanceLabel.setText(String.format("%,.2f",calPaid(Float.parseFloat(paidTextField.getText()))));
                     saveSuccessfulPane.setOpacity(1);
                     saveSuccessfulPane.setDisable(false);
                     errorLabel.setText("");
@@ -125,22 +120,38 @@ public class PaymentController {
                     System.out.println(e);
                 }
             } catch (NumberFormatException e) {
-                errorLabel.setText("กรุณาใส่ตัวเลข");
+                errorLabel.setText("กรุณาใส่ข้อมูลให้ถูกต้อง");
             }
+
         }
         effect.fadeOutLabelEffect(errorLabel, 3);
     }
 
-    public float calPaid(float paid) {
-        float total = Float.parseFloat(totalPriceLabel.getText()) - paid;
-        return total;
-    }
-    public int checkPaidStatus(float paid) {
-        if (Float.parseFloat(totalPriceLabel.getText()) == paid) {
-            return 1;
-        }else if (Float.parseFloat(totalPriceLabel.getText()) > paid) {
-            return 2;
+    public float calPaid(float paid) throws SQLException {
+        Connection connection = DBConnector.getConnection();
+        Statement statement = connection.createStatement();
+        ResultSet resultSet = statement.executeQuery("SELECT ยอดเงินสุทธิ FROM ใบแจ้งหนี้ WHERE (เลขที่ห้องเช่า,วัน_เดือน_ปีที่ออกใบแจ้งหนี้) IN (SELECT เลขที่ห้องเช่า, MAX(วัน_เดือน_ปีที่ออกใบแจ้งหนี้) FROM ใบแจ้งหนี้ WHERE เลขที่ห้องเช่า = "+roomTextField.getText()+");");
+        while (resultSet.next()) {
+            float totalNum = resultSet.getFloat("ยอดเงินสุทธิ");
+            float total =  totalNum - paid;
+            return total;
         }
+        return 0;
+    }
+    public int checkPaidStatus(float paid) throws SQLException {
+        Connection connection = DBConnector.getConnection();
+        Statement statement = connection.createStatement();
+        ResultSet resultSet = statement.executeQuery("SELECT ยอดเงินสุทธิ FROM ใบแจ้งหนี้ WHERE (เลขที่ห้องเช่า,วัน_เดือน_ปีที่ออกใบแจ้งหนี้) IN (SELECT เลขที่ห้องเช่า, MAX(วัน_เดือน_ปีที่ออกใบแจ้งหนี้) FROM ใบแจ้งหนี้ WHERE เลขที่ห้องเช่า = "+roomTextField.getText()+");");
+        while (resultSet.next()) {
+            float totalNum = resultSet.getFloat("ยอดเงินสุทธิ");
+            if (totalNum == paid) {
+                return 1;
+            }
+            else if (totalNum > paid) {
+                return 2;
+            }
+        }
+
         return 0;
     }
 
@@ -156,6 +167,15 @@ public class PaymentController {
             FXRouter.goTo ( "Home" );
         } catch (IOException e) {
             System.err.println ( "ไปที่หน้า Home ไม่ด้" );
+        }
+    }
+
+    public void receiptBtn(ActionEvent actionEvent) {
+        try {
+            FXRouter.goTo("Receipt");
+        } catch (IOException e) {
+            System.err.println("ไปที่หน้า login_detail ไม่ได้");
+            System.err.println("ให้ตรวจสอบการกำหนด route");
         }
     }
 }

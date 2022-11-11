@@ -73,25 +73,27 @@ public class InvoiceController {
             Statement statement = con.createStatement();
             Statement statement1 = con.createStatement();
             Statement statement2 = con.createStatement();
-            ResultSet resultSet = statement.executeQuery("SELECT เลขที่ใบแจ้งหนี้,วัน_เดือน_ปีที่ออกใบแจ้งหนี้,เลขที่ห้องเช่า,ค่าห้อง FROM ใบแจ้งหนี้ WHERE (เลขที่ห้องเช่า,วัน_เดือน_ปีที่ออกใบแจ้งหนี้) IN (SELECT เลขที่ห้องเช่า, MAX(วัน_เดือน_ปีที่ออกใบแจ้งหนี้) FROM ใบแจ้งหนี้ WHERE เลขที่ห้องเช่า = "+invoice.getRoomNum()+");");
-            ResultSet resultSet1 = statement1.executeQuery("SELECT ชื่อ_นามสกุล,ยอดค้างชำระ FROM ลูกค้า WHERE เลขที่ห้องเช่า = "+invoice.getRoomNum());
-            ResultSet resultSet2 = statement2.executeQuery("SELECT มิเตอร์น้ำเดือนปัจจุบัน,มิเตอร์ไฟเดือนปัจจุบัน,ค่าไฟ,ค่าน้ำ FROM มิเตอร์ WHERE (เลขที่ห้องเช่า,วัน_เดือน_ปีที่จด) IN ( SELECT เลขที่ห้องเช่า, MAX(วัน_เดือน_ปีที่จด) FROM มิเตอร์ WHERE เลขที่ห้องเช่า = "+invoice.getRoomNum()+");");
+            Statement statement3 = con.createStatement();
+            ResultSet resultSet = statement.executeQuery("SELECT เลขที่ใบแจ้งหนี้,วัน_เดือน_ปีที่ออกใบแจ้งหนี้,ยอดเงินสุทธิ FROM ใบแจ้งหนี้ WHERE (เลขที่ห้องเช่า,วัน_เดือน_ปีที่ออกใบแจ้งหนี้) IN (SELECT เลขที่ห้องเช่า, MAX(วัน_เดือน_ปีที่ออกใบแจ้งหนี้) FROM ใบแจ้งหนี้ WHERE เลขที่ห้องเช่า = "+invoice.getRoomNumStr()+");");
+            ResultSet resultSet1 = statement1.executeQuery("SELECT ชื่อ_นามสกุล,ยอดค้างชำระ FROM ลูกค้า WHERE เลขที่ห้องเช่า = "+invoice.getRoomNumStr());
+            ResultSet resultSet2 = statement2.executeQuery("SELECT เลขมิเตอร์น้ำเดือนปัจจุบัน,เลขมิเตอร์ไฟเดือนปัจจุบัน,ค่าไฟ,ค่าน้ำ FROM การใช้น้ำใช้ไฟ WHERE (เลขที่ห้องเช่า,วัน_เดือน_ปีที่จด) IN ( SELECT เลขที่ห้องเช่า, MAX(วัน_เดือน_ปีที่จด) FROM การใช้น้ำใช้ไฟ WHERE เลขที่ห้องเช่า = "+invoice.getRoomNumStr()+");");
+            ResultSet resultSet3 = statement3.executeQuery("SELECT เลขที่ห้องเช่า,ค่าห้อง FROM ห้องเช่า WHERE เลขที่ห้องเช่า = "+invoice.getRoomNumStr());
 
-            while (resultSet.next() & resultSet1.next() & resultSet2.next()){
-                RoomText.setText(resultSet.getString("เลขที่ห้องเช่า"));
+            while (resultSet.next() & resultSet1.next() & resultSet2.next() & resultSet3.next()){
+                RoomText.setText(resultSet3.getString("เลขที่ห้องเช่า"));
                 InvoiceNumText.setText(resultSet.getString("เลขที่ใบแจ้งหนี้"));
                 invoiceDateText.setText(dateString(resultSet.getDate("วัน_เดือน_ปีที่ออกใบแจ้งหนี้").toLocalDate()));
                 nameText.setText(resultSet1.getString("ชื่อ_นามสกุล"));
-                waterUnitText.setText(resultSet2.getString("มิเตอร์น้ำเดือนปัจจุบัน"));
-                ElectUnit.setText(String.format("%.2f", resultSet2.getFloat("มิเตอร์ไฟเดือนปัจจุบัน")));
-                ElectPriceTotalText.setText(String.format("%.2f",resultSet2.getFloat("ค่าไฟ")));
-                waterPriceTotalText.setText(String.format("%.2f", resultSet2.getFloat("ค่าน้ำ")));
-                roomPriceText.setText(String.format("%.2f",resultSet.getFloat("ค่าห้อง")));
-                roomPriceTotalText.setText(String.format("%.2f",resultSet.getFloat("ค่าห้อง")));
-                owedText.setText(String.format("%.2f",resultSet1.getFloat("ยอดค้างชำระ")));
-                owedTotalText.setText(String.format("%.2f",resultSet1.getFloat("ยอดค้างชำระ")));
-                totalPriceText.setText(String.format("%.2f",resultSet2.getFloat("ค่าไฟ") + resultSet2.getFloat("ค่าน้ำ") + resultSet.getFloat("ค่าห้อง") + resultSet1.getFloat("ยอดค้างชำระ")));
-                numTextLabel.setText(new NumberMap().getText(Float.toString(resultSet2.getFloat("ค่าไฟ") + resultSet2.getFloat("ค่าน้ำ") + resultSet.getFloat("ค่าห้อง") + resultSet1.getFloat("ยอดค้างชำระ"))));
+                waterUnitText.setText(resultSet2.getString("เลขมิเตอร์น้ำเดือนปัจจุบัน"));
+                ElectUnit.setText(String.format(resultSet2.getString("เลขมิเตอร์ไฟเดือนปัจจุบัน")));
+                ElectPriceTotalText.setText(String.format("%,.2f",resultSet2.getFloat("ค่าไฟ")));
+                waterPriceTotalText.setText(String.format("%,.2f", resultSet2.getFloat("ค่าน้ำ")));
+                roomPriceText.setText(String.format("%,.2f",resultSet3.getFloat("ค่าห้อง")));
+                roomPriceTotalText.setText(String.format("%,.2f",resultSet3.getFloat("ค่าห้อง")));
+                owedText.setText(String.format("%,.2f",resultSet1.getFloat("ยอดค้างชำระ")));
+                owedTotalText.setText(String.format("%,.2f",resultSet1.getFloat("ยอดค้างชำระ")));
+                totalPriceText.setText(String.format("%,.2f",resultSet.getFloat("ยอดเงินสุทธิ")));
+                numTextLabel.setText(new NumberMap().getText(Float.toString(resultSet.getFloat("ยอดเงินสุทธิ"))));
             }
         } catch (Exception e) {
             System.out.println(e);

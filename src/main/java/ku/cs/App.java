@@ -17,7 +17,7 @@ public class App extends Application {
     private static Scene scene;
 
     public void start(Stage stage) throws IOException {
-        FXRouter.bind(this, stage, "Dormitory", 640, 400);
+        FXRouter.bind(this, stage, "Dormitory", 840, 600);
         stage.setResizable(false);
         configRoute();
         FXRouter.goTo("Home");
@@ -29,16 +29,16 @@ public class App extends Application {
         FXRouter.when("AddCustomer", packageStr + "AddCustomer.fxml");
         FXRouter.when("CalMeter", packageStr + "CalMeter.fxml");
         FXRouter.when("CreateInvoice", packageStr + "CreateInvoice.fxml");
-        FXRouter.when("Invoice", packageStr + "Invoice.fxml", 600, 400);
+        FXRouter.when("Invoice", packageStr + "Invoice.fxml");
         FXRouter.when("AllTenants", packageStr + "AllTenants.fxml");
         FXRouter.when("Receipt", packageStr + "Receipt.fxml");
         FXRouter.when("Payment", packageStr + "Payment.fxml");
         FXRouter.when("Debt", packageStr + "Debt.fxml");
         FXRouter.when("MonthlySum", packageStr + "MonthlySum.fxml");
-        FXRouter.when("ReceiptPrint", packageStr + "ReceiptPrint.fxml", 600, 400);
+        FXRouter.when("ReceiptPrint", packageStr + "ReceiptPrint.fxml");
         FXRouter.when("Tenants", packageStr + "Tenants.fxml");
         FXRouter.when("Employee", packageStr + "Employee.fxml");
-        FXRouter.when("MonthlySumPrint",packageStr + "MonthlySumPrint.fxml",600,400);
+        FXRouter.when("MonthlySumPrint",packageStr + "MonthlySumPrint.fxml");
     }
 
     public static void setRoot(String fxml) throws IOException {

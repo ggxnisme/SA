@@ -32,9 +32,11 @@
   OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 -->
 
+<?import javafx.geometry.Insets?>
 <?import javafx.scene.Cursor?>
 <?import javafx.scene.control.Button?>
 <?import javafx.scene.control.Label?>
+<?import javafx.scene.control.MenuButton?>
 <?import javafx.scene.control.TextArea?>
 <?import javafx.scene.control.TextField?>
 <?import javafx.scene.image.Image?>
@@ -43,8 +45,9 @@
 <?import javafx.scene.layout.Pane?>
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.shape.Rectangle?>
+<?import javafx.scene.text.Font?>
 
-<VBox prefHeight="400.0" prefWidth="640.0" xmlns="http://javafx.com/javafx/16" xmlns:fx="http://javafx.com/fxml/1" fx:controller="ku.cs.controllers.AddCustomerController">
+<VBox prefHeight="600.0" prefWidth="840.0" xmlns="http://javafx.com/javafx/19" xmlns:fx="http://javafx.com/fxml/1" fx:controller="ku.cs.controllers.AddCustomerController">
   <children>
       <Pane prefHeight="39.0" prefWidth="640.0" style="-fx-background-color: #1E90FF#1E90FF;">
          <children>
@@ -52,7 +55,7 @@
                <graphic>
                   <ImageView fitHeight="15.0" fitWidth="15.0">
                      <image>
-                        <Image url="@../../Image/left.png" />
+                        <Image url="@../../Image/left-arrow-2.png" />
                      </image>
                      <cursor>
                         <Cursor fx:constant="HAND" />
@@ -63,35 +66,99 @@
                   <Cursor fx:constant="HAND" />
                </cursor>
             </Button>
-            <Label alignment="CENTER" layoutX="253.0" layoutY="11.0" style="&#10;" text="บันทึกข้อมูลผู้เช่ารายใหม่" textAlignment="CENTER" textFill="WHITE" wrapText="false" />
+            <Label alignment="CENTER" layoutX="327.0" layoutY="8.0" style="&#10;" text="บันทึกข้อมูลผู้เช่ารายใหม่" textAlignment="CENTER" textFill="WHITE" wrapText="false">
+               <font>
+                  <Font size="18.0" />
+               </font></Label>
          </children>
       </Pane>
     <AnchorPane maxHeight="-1.0" maxWidth="-1.0" prefHeight="-1.0" prefWidth="-1.0" style="-fx-background-color: ffffff;" VBox.vgrow="ALWAYS">
       <children>
-            <Pane prefHeight="361.0" prefWidth="640.0">
+            <Pane prefHeight="561.0" prefWidth="840.0">
                <children>
-                  <Rectangle accessibleRole="PARENT" arcHeight="5.0" arcWidth="5.0" fill="#ffffff00" height="317.0" layoutX="23.0" layoutY="22.0" stroke="DODGERBLUE" strokeType="INSIDE" width="595.0" />
-                  <Label layoutX="58.0" layoutY="92.0" text="ชื่อ-นามสกุล" />
-                  <Label layoutX="306.0" layoutY="92.0" text="เบอร์โทรศัพท์" />
-                  <TextField fx:id="nameTextField" layoutX="139.0" layoutY="88.0" promptText="กรอกชื่อ-นามสกุล" />
-                  <TextField fx:id="phoneTextField" layoutX="392.0" layoutY="88.0" promptText="กรอกเบอร์โทรศัพท์" />
-                  <Label layoutX="58.0" layoutY="50.0" text="เลขที่ห้องเช่า" />
-                  <TextField fx:id="roomNumTextField" layoutX="136.0" layoutY="46.0" promptText="กรอกเลขที่ห้องเช่า" />
-                  <Label layoutX="306.0" layoutY="50.0" text="เลขบัตรประชาชน" />
-                  <TextField fx:id="idTextField" layoutX="408.0" layoutY="46.0" promptText="กรอกเลขบัตรประชาชน" />
-                  <Label layoutX="58.0" layoutY="137.0" text="ที่อยู่ตามทะเบียนบ้าน" />
-                  <TextArea fx:id="addressTextField" layoutX="182.0" layoutY="137.0" prefHeight="69.0" prefWidth="401.0" promptText="กรอกที่อยู่ตามทะเบียนบ้าน" />
-                  <Label layoutX="61.0" layoutY="227.0" text="ระยะเวลาเช่า" />
-                  <Label layoutX="61.0" layoutY="272.0" text="เงินประกัน" />
-                  <TextField fx:id="rentTextField" layoutX="137.0" layoutY="223.0" promptText="กรอกระยะเวลาเช่า" />
-                  <TextField fx:id="depositTextField" layoutX="126.0" layoutY="268.0" promptText="กรอกจำนวนเงินประกัน" />
-                  <Button layoutX="509.0" layoutY="266.0" mnemonicParsing="false" onAction="#clickToSave" prefHeight="51.0" prefWidth="81.0" style="-fx-background-color: #1E90FF#1E90FF;" text="บันทึก" textFill="WHITE">
+                  <Rectangle accessibleRole="PARENT" arcHeight="5.0" arcWidth="5.0" fill="#ffffff00" height="517.0" layoutX="23.0" layoutY="22.0" stroke="DODGERBLUE" strokeType="INSIDE" width="794.0" />
+                  <Label layoutX="58.0" layoutY="199.0" text="ชื่อ-นามสกุล">
+                     <font>
+                        <Font size="18.0" />
+                     </font></Label>
+                  <Label layoutX="423.0" layoutY="64.0" text="เบอร์โทรศัพท์">
+                     <font>
+                        <Font size="18.0" />
+                     </font></Label>
+                  <TextField fx:id="nameTextField" layoutX="175.0" layoutY="195.0" prefHeight="35.0" prefWidth="433.0" promptText="กรอกชื่อ-นามสกุล">
+                     <font>
+                        <Font size="18.0" />
+                     </font></TextField>
+                  <TextField fx:id="phoneTextField" layoutX="539.0" layoutY="58.0" prefHeight="35.0" prefWidth="245.0" promptText="กรอกเบอร์โทรศัพท์">
+                     <font>
+                        <Font size="18.0" />
+                     </font></TextField>
+                  <Label layoutX="58.0" layoutY="64.0" text="เลขที่ห้องเช่า">
+                     <font>
+                        <Font size="18.0" />
+                     </font></Label>
+                  <Label layoutX="58.0" layoutY="126.0" text="เลขบัตรประชาชน">
+                     <font>
+                        <Font size="18.0" />
+                     </font></Label>
+                  <TextField fx:id="idTextField" layoutX="212.0" layoutY="120.0" prefHeight="35.0" prefWidth="270.0" promptText="กรอกเลขบัตรประชาชน">
+                     <font>
+                        <Font size="18.0" />
+                     </font></TextField>
+                  <Label layoutX="58.0" layoutY="275.0" text="ที่อยู่ตามทะเบียนบ้าน">
+                     <font>
+                        <Font size="18.0" />
+                     </font></Label>
+                  <TextArea fx:id="addressTextField" layoutX="223.0" layoutY="275.0" prefHeight="69.0" prefWidth="547.0" promptText="กรอกที่อยู่ตามทะเบียนบ้าน">
+                     <font>
+                        <Font size="18.0" />
+                     </font></TextArea>
+                  <Label layoutX="58.0" layoutY="386.0" text="ระยะเวลาเช่า">
+                     <font>
+                        <Font size="18.0" />
+                     </font></Label>
+                  <Label layoutX="58.0" layoutY="452.0" text="เงินประกัน">
+                     <font>
+                        <Font size="18.0" />
+                     </font></Label>
+                  <TextField fx:id="rentTextField" layoutX="175.0" layoutY="380.0" promptText="กรอกระยะเวลาเช่า">
+                     <font>
+                        <Font size="18.0" />
+                     </font></TextField>
+                  <TextField fx:id="depositTextField" layoutX="175.0" layoutY="446.0" promptText="กรอกจำนวนเงินประกัน">
+                     <font>
+                        <Font size="18.0" />
+                     </font></TextField>
+                  <Button layoutX="579.0" layoutY="398.0" mnemonicParsing="false" onAction="#clickToSave" prefHeight="76.0" prefWidth="165.0" style="-fx-background-color: #1E90FF#1E90FF;" text="บันทึก" textFill="WHITE">
                      <cursor>
                         <Cursor fx:constant="HAND" />
-                     </cursor></Button>
-                  <Label layoutX="294.0" layoutY="272.0" text="บาท" />
-                  <Label layoutX="306.0" layoutY="227.0" text="เดือน" />
-                  <Label fx:id="errorLabel" layoutX="367.0" layoutY="275.0" prefHeight="17.0" prefWidth="149.0" textFill="RED" />
+                     </cursor>
+                     <font>
+                        <Font size="18.0" />
+                     </font></Button>
+                  <Label layoutX="422.0" layoutY="452.0" text="บาท">
+                     <font>
+                        <Font size="18.0" />
+                     </font></Label>
+                  <Label layoutX="419.0" layoutY="386.0" text="เดือน">
+                     <font>
+                        <Font size="18.0" />
+                     </font></Label>
+                  <Label fx:id="errorLabel" alignment="CENTER" layoutX="59.0" layoutY="501.0" prefHeight="23.0" prefWidth="723.0" textFill="RED">
+                     <font>
+                        <Font size="18.0" />
+                     </font></Label>
+                  <MenuButton fx:id="roomMenu" layoutX="164.0" layoutY="58.0" mnemonicParsing="false" prefHeight="35.0" prefWidth="245.0" text="เลือกเลขห้อง">
+                     <font>
+                        <Font size="18.0" />
+                     </font>
+                     <opaqueInsets>
+                        <Insets />
+                     </opaqueInsets>
+                     <cursor>
+                        <Cursor fx:constant="HAND" />
+                     </cursor>
+                  </MenuButton>
                </children>
             </Pane>
       </children>

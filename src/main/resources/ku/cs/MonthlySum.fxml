@@ -46,7 +46,7 @@
 <?import javafx.scene.shape.Line?>
 <?import javafx.scene.text.Font?>
 
-<VBox prefHeight="400.0" prefWidth="640.0" xmlns="http://javafx.com/javafx/19" xmlns:fx="http://javafx.com/fxml/1" fx:controller="ku.cs.controllers.MonthlySumController">
+<VBox prefHeight="600.0" prefWidth="840.0" xmlns="http://javafx.com/javafx/19" xmlns:fx="http://javafx.com/fxml/1" fx:controller="ku.cs.controllers.MonthlySumController">
   <children>
       <Pane prefHeight="39.0" prefWidth="641.0" style="-fx-background-color: #1E90FF#1E90FF;">
          <children>
@@ -65,73 +65,142 @@
                   <Cursor fx:constant="HAND" />
                </cursor>
             </Button>
-            <Label alignment="CENTER" layoutX="253.0" layoutY="2.0" prefHeight="35.0" prefWidth="134.0" style="&#10;" text="สรุปยอดประจำเดือน" textAlignment="CENTER" textFill="WHITE" wrapText="false" />
-            <Label fx:id="monthlySumDate" alignment="CENTER" layoutX="558.0" layoutY="2.0" prefHeight="35.0" prefWidth="82.0" style="&#10;" textAlignment="CENTER" textFill="WHITE" wrapText="false">
+            <Label alignment="CENTER" layoutX="340.0" layoutY="2.0" prefHeight="35.0" prefWidth="160.0" style="&#10;" text="สรุปยอดประจำเดือน" textAlignment="CENTER" textFill="WHITE" wrapText="false">
                <font>
-                  <Font size="13.0" />
+                  <Font size="18.0" />
+               </font></Label>
+            <Label fx:id="monthlySumDate" alignment="CENTER" layoutX="690.0" layoutY="2.0" prefHeight="35.0" prefWidth="150.0" style="&#10;" textAlignment="CENTER" textFill="WHITE" wrapText="false">
+               <font>
+                  <Font size="18.0" />
                </font>
             </Label>
-            <Label alignment="CENTER" layoutX="526.0" layoutY="2.0" prefHeight="35.0" prefWidth="32.0" style="&#10;" text="เดือน" textAlignment="CENTER" textFill="WHITE" wrapText="false" />
+            <Label alignment="CENTER" layoutX="639.0" layoutY="2.0" prefHeight="35.0" prefWidth="51.0" style="&#10;" text="เดือน" textAlignment="CENTER" textFill="WHITE" wrapText="false">
+               <font>
+                  <Font size="18.0" />
+               </font></Label>
          </children>
       </Pane>
-    <AnchorPane maxHeight="-1.0" maxWidth="-1.0" prefHeight="361.0" prefWidth="640.0" VBox.vgrow="ALWAYS">
+    <AnchorPane maxHeight="-1.0" maxWidth="-1.0" prefHeight="361.0" prefWidth="640.0" style="-fx-background-color: #ffffff;" VBox.vgrow="ALWAYS">
          <children>
-            <Label layoutX="178.0" layoutY="24.0" prefHeight="23.0" prefWidth="113.0" text="วันที่ออกใบสรุปยอด" />
-            <DatePicker fx:id="datePicker" layoutX="298.0" layoutY="23.0" prefHeight="26.0" prefWidth="134.0">
+            <Label layoutX="211.0" layoutY="27.0" prefHeight="23.0" prefWidth="150.0" text="วันที่ออกใบสรุปยอด">
+               <font>
+                  <Font size="18.0" />
+               </font></Label>
+            <DatePicker fx:id="datePicker" layoutX="379.0" layoutY="21.0" prefHeight="35.0" prefWidth="245.0">
                <cursor>
                   <Cursor fx:constant="HAND" />
                </cursor></DatePicker>
-            <Line endX="494.0" layoutX="123.0" layoutY="64.0" startX="-100.0" stroke="DODGERBLUE" />
-            <HBox alignment="CENTER" layoutX="56.0" layoutY="87.0" prefHeight="55.0" prefWidth="529.0" style="-fx-border-color: #000000;">
+            <Line endX="687.5" layoutX="123.0" layoutY="75.0" startX="-100.0" stroke="DODGERBLUE" />
+            <HBox alignment="CENTER" layoutX="51.0" layoutY="100.0" prefHeight="55.0" prefWidth="740.0" style="-fx-border-color: #000000;">
                <children>
-                  <Label alignment="CENTER" prefHeight="53.0" prefWidth="245.0" style="-fx-background-color: #c8e5ff#c8e5ff;" text="รายการ" />
-                  <Label alignment="CENTER" prefHeight="54.0" prefWidth="131.0" style="-fx-background-color: #c8e5ff#c8e5ff;" text="หน่วย" />
-                  <Label alignment="CENTER" prefHeight="53.0" prefWidth="150.0" style="-fx-background-color: #c8e5ff#c8e5ff;" text="ยอดสุทธิ" />
+                  <Label alignment="CENTER" prefHeight="53.0" prefWidth="334.0" style="-fx-background-color: #c8e5ff#c8e5ff;" text="รายการ">
+                     <font>
+                        <Font size="18.0" />
+                     </font></Label>
+                  <Label alignment="CENTER" prefHeight="53.0" prefWidth="189.0" style="-fx-background-color: #c8e5ff#c8e5ff;" text="        หน่วย">
+                     <font>
+                        <Font size="18.0" />
+                     </font></Label>
+                  <Label alignment="CENTER" prefHeight="53.0" prefWidth="239.0" style="-fx-background-color: #c8e5ff#c8e5ff;" text="              ยอดสุทธิ">
+                     <font>
+                        <Font size="18.0" />
+                     </font></Label>
                </children>
             </HBox>
-            <HBox alignment="CENTER" layoutX="56.0" layoutY="141.0" prefHeight="184.0" prefWidth="529.0" style="-fx-border-color: #000000;">
+            <HBox alignment="CENTER" layoutX="51.0" layoutY="154.0" prefHeight="358.0" prefWidth="740.0" style="-fx-border-color: #000000;">
                <children>
                   <VBox alignment="TOP_RIGHT" prefHeight="184.0" prefWidth="245.0">
                      <children>
-                        <Label prefHeight="30.0" prefWidth="240.0" text="ค่าเช่าห้องทั้งหมด" />
-                        <Label prefHeight="30.0" prefWidth="240.0" text="ค่าน้ำทั้งหมด" />
-                        <Label prefHeight="30.0" prefWidth="240.0" text="ค่าไฟทั้งหมด" />
-                        <Label prefHeight="30.0" prefWidth="240.0" text="ยอดเงินรวม" />
-                        <Label prefHeight="30.0" prefWidth="240.0" text="ยอดชำระรวม" />
-                        <Label prefHeight="30.0" prefWidth="240.0" text="ยอดค้างชำระรวม" />
+                        <Label prefHeight="60.0" prefWidth="235.0" text="ค่าเช่าห้องทั้งหมด">
+                           <font>
+                              <Font size="18.0" />
+                           </font></Label>
+                        <Label prefHeight="60.0" prefWidth="235.0" text="ค่าน้ำทั้งหมด">
+                           <font>
+                              <Font size="18.0" />
+                           </font></Label>
+                        <Label prefHeight="60.0" prefWidth="235.0" text="ค่าไฟทั้งหมด">
+                           <font>
+                              <Font size="18.0" />
+                           </font></Label>
+                        <Label prefHeight="60.0" prefWidth="235.0" text="ยอดเงินรวม">
+                           <font>
+                              <Font size="18.0" />
+                           </font></Label>
+                        <Label prefHeight="60.0" prefWidth="235.0" text="ยอดชำระรวม">
+                           <font>
+                              <Font size="18.0" />
+                           </font></Label>
+                        <Label prefHeight="60.0" prefWidth="235.0" text="ยอดค้างชำระรวม">
+                           <font>
+                              <Font size="18.0" />
+                           </font></Label>
                      </children>
                   </VBox>
-                  <VBox prefHeight="184.0" prefWidth="131.0">
+                  <VBox prefHeight="182.0" prefWidth="213.0">
                      <children>
-                        <Label fx:id="roomUnitAmountLabel" alignment="CENTER" prefHeight="30.0" prefWidth="131.0" text="RoomUnitAmount" />
-                        <Label fx:id="waterUnitAmountLabel" alignment="CENTER" prefHeight="30.0" prefWidth="131.0" text="WaterUnitAmount" />
-                        <Label fx:id="electUnitAmountLabel" alignment="CENTER" prefHeight="30.0" prefWidth="131.0" text="ElectUnitAmount" />
+                        <Label fx:id="roomUnitAmountLabel" alignment="CENTER_RIGHT" prefHeight="60.0" prefWidth="210.0" text="RoomUnitAmount">
+                           <font>
+                              <Font size="18.0" />
+                           </font></Label>
+                        <Label fx:id="waterUnitAmountLabel" alignment="CENTER_RIGHT" prefHeight="60.0" prefWidth="210.0" text="WaterUnitAmount">
+                           <font>
+                              <Font size="18.0" />
+                           </font></Label>
+                        <Label fx:id="electUnitAmountLabel" alignment="CENTER_RIGHT" prefHeight="60.0" prefWidth="210.0" text="ElectUnitAmount">
+                           <font>
+                              <Font size="18.0" />
+                           </font></Label>
                      </children>
                   </VBox>
-                  <VBox prefHeight="184.0" prefWidth="150.0">
+                  <VBox prefHeight="356.0" prefWidth="279.0">
                      <children>
-                        <Label fx:id="roomPriceAmount" alignment="CENTER" prefHeight="30.0" prefWidth="150.0" text="RoompriceAmount" />
-                        <Label fx:id="waterPriceAmount" alignment="CENTER" prefHeight="30.0" prefWidth="150.0" text="WaterPriceAmount" />
-                        <Label fx:id="ElectPriceAmount" alignment="CENTER" prefHeight="30.0" prefWidth="150.0" text="ElectPriceAmount" />
-                        <Label fx:id="roomTotalAmount" alignment="CENTER" prefHeight="30.0" prefWidth="150.0" text="RoomTotalAmount" />
-                        <Label fx:id="totalPayment" alignment="CENTER" prefHeight="30.0" prefWidth="150.0" text="TotalPayment" />
-                        <Label fx:id="totalOwed" alignment="CENTER" prefHeight="30.0" prefWidth="150.0" text="TotalOwed" />
+                        <Label fx:id="roomPriceAmount" alignment="CENTER_RIGHT" prefHeight="60.0" prefWidth="230.0" text="RoompriceAmount">
+                           <font>
+                              <Font size="18.0" />
+                           </font></Label>
+                        <Label fx:id="waterPriceAmount" alignment="CENTER_RIGHT" prefHeight="60.0" prefWidth="230.0" text="WaterPriceAmount">
+                           <font>
+                              <Font size="18.0" />
+                           </font></Label>
+                        <Label fx:id="ElectPriceAmount" alignment="CENTER_RIGHT" prefHeight="60.0" prefWidth="230.0" text="ElectPriceAmount">
+                           <font>
+                              <Font size="18.0" />
+                           </font></Label>
+                        <Label fx:id="roomTotalAmount" alignment="CENTER_RIGHT" prefHeight="60.0" prefWidth="230.0" text="RoomTotalAmount">
+                           <font>
+                              <Font size="18.0" />
+                           </font></Label>
+                        <Label fx:id="totalPayment" alignment="CENTER_RIGHT" prefHeight="60.0" prefWidth="230.0" text="TotalPayment">
+                           <font>
+                              <Font size="18.0" />
+                           </font></Label>
+                        <Label fx:id="totalOwed" alignment="CENTER_RIGHT" prefHeight="60.0" prefWidth="230.0" text="TotalOwed">
+                           <font>
+                              <Font size="18.0" />
+                           </font></Label>
                      </children>
                   </VBox>
                </children>
             </HBox>
-            <Button layoutX="446.0" layoutY="20.0" mnemonicParsing="false" onAction="#printBtn" prefHeight="30.0" prefWidth="81.0" style="-fx-background-color: #1E90FF#1E90FF;" text="Print" textFill="WHITE">
+            <Button layoutX="695.0" layoutY="21.0" mnemonicParsing="false" onAction="#printBtn" prefHeight="35.0" prefWidth="105.0" style="-fx-background-color: #1E90FF#1E90FF;" text="Print" textFill="WHITE">
                <cursor>
                   <Cursor fx:constant="HAND" />
-               </cursor></Button>
+               </cursor>
+               <font>
+                  <Font size="18.0" />
+               </font></Button>
             <Label fx:id="errorLabel" layoutX="56.0" layoutY="328.0" prefHeight="18.0" prefWidth="529.0" textAlignment="CENTER" textFill="RED" />
-            <TextField fx:id="dateSearchTextField" alignment="CENTER" layoutX="56.0" layoutY="21.0" prefHeight="27.0" prefWidth="69.0" promptText="ดด/ปปปป" />
-            <Button layoutX="121.0" layoutY="21.0" mnemonicParsing="false" onAction="#dateSearchBtn" prefHeight="26.0" prefWidth="32.0" style="-fx-background-color: #1E90FF#1E90FF #1E90FF#1E90FF;" textFill="WHITE">
+            <TextField fx:id="dateSearchTextField" alignment="CENTER" layoutX="56.0" layoutY="21.0" prefHeight="35.0" prefWidth="105.0" promptText="ดด/ปปปป">
+               <font>
+                  <Font size="18.0" />
+               </font></TextField>
+            <Button layoutX="162.0" layoutY="23.0" mnemonicParsing="false" onAction="#dateSearchBtn" prefHeight="35.0" prefWidth="35.0" style="-fx-background-color: #1E90FF#1E90FF #1E90FF#1E90FF;" textFill="WHITE">
                <cursor>
                   <Cursor fx:constant="HAND" />
                </cursor>
                <graphic>
-                  <ImageView fitHeight="15.0" fitWidth="34.0" pickOnBounds="true" preserveRatio="true">
+                  <ImageView fitHeight="18.0" fitWidth="34.0" pickOnBounds="true" preserveRatio="true">
                      <image>
                         <Image url="@../../Image/search2.png" />
                      </image>

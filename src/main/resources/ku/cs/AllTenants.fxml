@@ -42,10 +42,11 @@
 <?import javafx.scene.layout.Pane?>
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.shape.Rectangle?>
+<?import javafx.scene.text.Font?>
 
-<VBox prefHeight="400.0" prefWidth="640.0" xmlns="http://javafx.com/javafx/19" xmlns:fx="http://javafx.com/fxml/1" fx:controller="ku.cs.controllers.AllTenantsController">
+<VBox prefHeight="600.0" prefWidth="840.0" xmlns="http://javafx.com/javafx/16" xmlns:fx="http://javafx.com/fxml/1" fx:controller="ku.cs.controllers.AllTenantsController">
   <children>
-      <Pane prefHeight="39.0" prefWidth="640.0" style="-fx-background-color: #1E90FF#1E90FF;">
+      <Pane prefHeight="39.0" prefWidth="840.0" style="-fx-background-color: #1E90FF#1E90FF;">
          <children>
             <Button graphicTextGap="0.0" layoutY="2.0" mnemonicParsing="false" onAction="#clickToBack" prefHeight="35.0" prefWidth="55.0" style="-fx-background-color: #1E90FF#1E90FF;">
                <graphic>
@@ -62,38 +63,98 @@
                   <Cursor fx:constant="HAND" />
                </cursor>
             </Button>
-            <Label alignment="CENTER" layoutX="253.0" layoutY="2.0" prefHeight="35.0" prefWidth="134.0" style="&#10;" text="ข้อมูลผู้เช่า" textAlignment="CENTER" textFill="WHITE" wrapText="false" />
+            <Label alignment="CENTER" layoutX="353.0" layoutY="2.0" prefHeight="35.0" prefWidth="134.0" style="&#10;" text="ข้อมูลผู้เช่า" textAlignment="CENTER" textFill="WHITE" wrapText="false">
+               <font>
+                  <Font size="18.0" />
+               </font></Label>
          </children>
       </Pane>
     <AnchorPane maxHeight="-1.0" maxWidth="-1.0" prefHeight="361.0" prefWidth="640.0" style="-fx-background-color: ffffff;" VBox.vgrow="ALWAYS">
       <children>
-            <Rectangle accessibleRole="PARENT" arcHeight="5.0" arcWidth="5.0" fill="#ffffff00" height="103.0" layoutX="150.0" layoutY="22.0" stroke="DODGERBLUE" strokeType="INSIDE" width="476.0" />
-            <Label layoutX="168.0" layoutY="46.0" prefHeight="23.0" prefWidth="54.0" text="เลขที่ห้อง" />
-            <Label fx:id="roomNumLabel" layoutX="234.0" layoutY="49.0" prefHeight="17.0" prefWidth="113.0" />
-            <Label layoutX="168.0" layoutY="84.0" text="เงินประกัน" />
-            <Label layoutX="360.0" layoutY="84.0" text="ระยะเวลาเช่า" />
-            <Label layoutX="360.0" layoutY="49.0" text="ยอดค้างชำระ" />
-            <Rectangle accessibleRole="PARENT" arcHeight="5.0" arcWidth="5.0" fill="#ffffff00" height="204.0" layoutX="149.0" layoutY="144.0" stroke="DODGERBLUE" strokeType="INSIDE" width="476.0" />
-            <Label layoutX="167.0" layoutY="167.0" text="ชื่อ-นามสกุล" />
-            <Label alignment="CENTER" layoutX="160.0" layoutY="136.0" prefHeight="17.0" prefWidth="83.0" style="-fx-background-color: ffffff;" text="ข้อมูลส่วนตัว" textAlignment="CENTER" />
-            <Label fx:id="nameLabel" layoutX="249.0" layoutY="167.0" prefHeight="17.0" prefWidth="356.0" />
-            <Label fx:id="Owed" layoutX="443.0" layoutY="49.0" prefHeight="17.0" prefWidth="163.0" />
-            <Label fx:id="depositLabel" layoutX="234.0" layoutY="84.0" prefHeight="17.0" prefWidth="113.0" />
-            <Label fx:id="rentalPeriodLabel" layoutX="443.0" layoutY="84.0" prefHeight="17.0" prefWidth="163.0" />
-            <Label alignment="CENTER" layoutX="160.0" layoutY="14.0" prefHeight="17.0" prefWidth="83.0" style="-fx-background-color: ffffff;" text="ข้อมูลการเช่า" textAlignment="CENTER" />
-            <Label layoutX="167.0" layoutY="236.0" text="เบอร์โทรศัพท์" />
-            <Label layoutX="167.0" layoutY="271.0" text="ที่อยู่ตามทะเบียนบ้าน" />
-            <Label fx:id="idLabel" layoutX="270.0" layoutY="202.0" prefHeight="17.0" prefWidth="332.0" />
-            <Label fx:id="phoneLabel" layoutX="250.0" layoutY="236.0" prefHeight="17.0" prefWidth="356.0" />
-            <Label fx:id="addressLabel" alignment="TOP_LEFT" layoutX="291.0" layoutY="271.0" prefHeight="62.0" prefWidth="316.0" wrapText="true" />
-            <Label layoutX="167.0" layoutY="202.0" text="เลขบัตรประชาชน" />
-            <Pane prefHeight="361.0" prefWidth="137.0" style="-fx-background-color: #c8e5ff#c8e5ff;">
+            <Rectangle accessibleRole="PARENT" arcHeight="5.0" arcWidth="5.0" fill="#ffffff00" height="139.0" layoutX="150.0" layoutY="22.0" stroke="DODGERBLUE" strokeType="INSIDE" width="665.0" />
+            <Label layoutX="174.0" layoutY="57.0" prefHeight="23.0" prefWidth="76.0" text="เลขที่ห้อง">
+               <font>
+                  <Font size="18.0" />
+               </font></Label>
+            <Label fx:id="roomNumLabel" layoutX="278.0" layoutY="57.0" prefHeight="17.0" prefWidth="113.0">
+               <font>
+                  <Font size="18.0" />
+               </font></Label>
+            <Label layoutX="174.0" layoutY="104.0" text="เงินประกัน">
+               <font>
+                  <Font size="18.0" />
+               </font></Label>
+            <Label layoutX="488.0" layoutY="106.0" text="ระยะเวลาเช่า">
+               <font>
+                  <Font size="18.0" />
+               </font></Label>
+            <Label layoutX="488.0" layoutY="59.0" text="ยอดค้างชำระ">
+               <font>
+                  <Font size="18.0" />
+               </font></Label>
+            <Rectangle accessibleRole="PARENT" arcHeight="5.0" arcWidth="5.0" fill="#ffffff00" height="360.0" layoutX="150.0" layoutY="184.0" stroke="DODGERBLUE" strokeType="INSIDE" width="665.0" />
+            <Label layoutX="174.0" layoutY="236.0" text="ชื่อ-นามสกุล">
+               <font>
+                  <Font size="18.0" />
+               </font></Label>
+            <Label alignment="CENTER" layoutX="161.0" layoutY="176.0" prefHeight="23.0" prefWidth="113.0" style="-fx-background-color: ffffff;" text="ข้อมูลส่วนตัว" textAlignment="CENTER">
+               <font>
+                  <Font size="18.0" />
+               </font></Label>
+            <Label fx:id="nameLabel" layoutX="322.0" layoutY="236.0" prefHeight="17.0" prefWidth="356.0">
+               <font>
+                  <Font size="18.0" />
+               </font></Label>
+            <Label fx:id="Owed" layoutX="601.0" layoutY="59.0" prefHeight="17.0" prefWidth="163.0">
+               <font>
+                  <Font size="18.0" />
+               </font></Label>
+            <Label fx:id="depositLabel" layoutX="278.0" layoutY="104.0" prefHeight="17.0" prefWidth="113.0">
+               <font>
+                  <Font size="18.0" />
+               </font></Label>
+            <Label fx:id="rentalPeriodLabel" layoutX="601.0" layoutY="106.0" prefHeight="17.0" prefWidth="163.0">
+               <font>
+                  <Font size="18.0" />
+               </font></Label>
+            <Label alignment="CENTER" layoutX="160.0" layoutY="14.0" prefHeight="23.0" prefWidth="113.0" style="-fx-background-color: ffffff;" text="ข้อมูลการเช่า" textAlignment="CENTER">
+               <font>
+                  <Font size="18.0" />
+               </font></Label>
+            <Label layoutX="174.0" layoutY="364.0" text="เบอร์โทรศัพท์">
+               <font>
+                  <Font size="18.0" />
+               </font></Label>
+            <Label layoutX="174.0" layoutY="430.0" text="ที่อยู่ตามทะเบียนบ้าน">
+               <font>
+                  <Font size="18.0" />
+               </font></Label>
+            <Label fx:id="idLabel" layoutX="322.0" layoutY="297.0" prefHeight="17.0" prefWidth="332.0">
+               <font>
+                  <Font size="18.0" />
+               </font></Label>
+            <Label fx:id="phoneLabel" layoutX="322.0" layoutY="364.0" prefHeight="17.0" prefWidth="356.0">
+               <font>
+                  <Font size="18.0" />
+               </font></Label>
+            <Label fx:id="addressLabel" alignment="TOP_LEFT" layoutX="351.0" layoutY="430.0" prefHeight="92.0" prefWidth="439.0" wrapText="true">
+               <font>
+                  <Font size="18.0" />
+               </font></Label>
+            <Label layoutX="174.0" layoutY="297.0" text="เลขบัตรประชาชน">
+               <font>
+                  <Font size="18.0" />
+               </font></Label>
+            <Pane prefHeight="561.0" prefWidth="137.0" style="-fx-background-color: #c8e5ff#c8e5ff;">
                <children>
-                  <ListView fx:id="roomListView" layoutY="27.0" prefHeight="334.0" prefWidth="137.0">
+                  <ListView fx:id="roomListView" layoutY="34.0" prefHeight="528.0" prefWidth="137.0">
                      <cursor>
                         <Cursor fx:constant="HAND" />
                      </cursor></ListView>
-                  <Label layoutX="48.0" layoutY="6.0" text="รายการ" />
+                  <Label layoutX="40.0" layoutY="6.0" text="รายการ">
+                     <font>
+                        <Font size="18.0" />
+                     </font></Label>
                </children>
             </Pane>
       </children>

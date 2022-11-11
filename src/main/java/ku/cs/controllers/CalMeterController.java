@@ -89,7 +89,7 @@ public class CalMeterController {
         try {
             Connection con = DBConnector.getConnection();
             Statement statement = con.createStatement();
-            ResultSet resultSet = statement.executeQuery("SELECT เลขที่ห้องเช่า FROM ลูกค้า");
+            ResultSet resultSet = statement.executeQuery("SELECT เลขที่ห้องเช่า FROM ห้องเช่า WHERE สถานะการเข้าอยู่ = 'ไม่ว่าง'");
             while (resultSet.next()) {
                 String เลขที่ห้องเช่า = resultSet.getString(1);
                 String listOut = เลขที่ห้องเช่า;
@@ -116,21 +116,25 @@ public class CalMeterController {
             Connection con = DBConnector.getConnection();
             Statement statement1 = con.createStatement();
             Statement statement2 = con.createStatement();
-            ResultSet resultSet1 = statement1.executeQuery("SELECT เลขที่ห้องเช่า,วัน_เดือน_ปีที่จด,มิเตอร์น้ำเดือนปัจจุบัน,มิเตอร์ไฟเดือนปัจจุบัน FROM มิเตอร์ WHERE (เลขที่ห้องเช่า,วัน_เดือน_ปีที่จด) IN ( SELECT เลขที่ห้องเช่า, MAX(วัน_เดือน_ปีที่จด) FROM มิเตอร์ WHERE เลขที่ห้องเช่า = "+t1+");");
-            ResultSet resultSet2 = statement2.executeQuery("SELECT ชื่อ_นามสกุล FROM ลูกค้า Where เลขที่ห้องเช่า = "+t1);
-            while (resultSet1.next() & resultSet2.next()) {
+            Statement statement = con.createStatement();
+            ResultSet resultSet = statement.executeQuery("SELECT MAX(วัน_เดือน_ปีที่จด) AS วัน_เดือน_ปีที่จด FROM การใช้น้ำใช้ไฟ WHERE เลขที่ห้องเช่า = "+t1);
+            ResultSet resultSet1 = statement1.executeQuery("SELECT เลขมิเตอร์น้ำ,เลขมิเตอร์ไฟ FROM ห้องเช่า WHERE เลขที่ห้องเช่า = "+t1);
+            ResultSet resultSet2 = statement2.executeQuery("SELECT ชื่อ_นามสกุล FROM ลูกค้า WHERE เลขที่ห้องเช่า = "+t1);
+            while (resultSet1.next() & resultSet2.next() & resultSet.next()) {
                nameLabel.setText(resultSet2.getString("ชื่อ_นามสกุล"));
-               roomNumberLabel.setText(resultSet1.getString("เลขที่ห้องเช่า"));
-               lastMonthLabel.setText(dateString(resultSet1.getDate("วัน_เดือน_ปีที่จด").toLocalDate()));
-               lastMonthLabel1.setText(dateString(resultSet1.getDate("วัน_เดือน_ปีที่จด").toLocalDate()));
-               lastMonthWaterLabel.setText(resultSet1.getString("มิเตอร์น้ำเดือนปัจจุบัน"));
-               lastMonthElectLabel.setText(resultSet1.getString("มิเตอร์ไฟเดือนปัจจุบัน"));
+               roomNumberLabel.setText(t1);
+               lastMonthLabel.setText(dateString(resultSet.getDate("วัน_เดือน_ปีที่จด").toLocalDate()));
+               lastMonthLabel1.setText(dateString(resultSet.getDate("วัน_เดือน_ปีที่จด").toLocalDate()));
+               lastMonthWaterLabel.setText(resultSet1.getString("เลขมิเตอร์น้ำ"));
+               lastMonthElectLabel.setText(resultSet1.getString("เลขมิเตอร์ไฟ"));
             }
             statement1.close();
             statement2.close();
             con.close();
         } catch (Exception e) {
             System.out.println(e);
+            clearLabel();
+
         }
     }
 
@@ -156,6 +160,9 @@ public class CalMeterController {
         else if (electMeterTextField.getText().isEmpty()) {
             errorLabel.setText("กรุณากรอกมิเตอร์ไฟเดือนปัจจุบัน");
         }
+        else if ((waterMeterTextField.getText().length() < 4 || waterMeterTextField.getText().length() > 4) || (electMeterTextField.getText().length() < 5 || electMeterTextField.getText().length() > 5)) {
+            errorLabel.setText("กรุณากรอกข้อมูลให้ถูกต้อง");
+        }
         else {
             try {
                 int thisElect = Integer.parseInt(electMeterTextField.getText());
@@ -168,17 +175,18 @@ public class CalMeterController {
                 float calElect = calElect(oldElect,thisElect,electUnit);
                 int calElectUnit = thisElect - oldElect;
                 int calWaterUnit = thisWater - oldWater;
-                waterBillLabel.setText(Float.toString(calWater));
-                electBillLabel.setText(Float.toString(calElect));
+                waterBillLabel.setText(String.format("%,.2f",calWater));
+                electBillLabel.setText(String.format("%,.2f",calElect));
                 electUnitLabel.setText(Integer.toString(calElectUnit));
                 waterUnitLabel.setText(Integer.toString(calWaterUnit));
 
-                addCalMeterToDB(Integer.parseInt(roomNumberLabel.getText()), datePicker.getValue(), lastMonthWaterLabel.getText(), waterMeterTextField.getText(), lastMonthElectLabel.getText(), electMeterTextField.getText(), waterUnit, electUnit , calWater, calElect, calWaterUnit, calElectUnit);
+                addCalMeterToDB(Integer.parseInt(roomNumberLabel.getText()), datePicker.getValue(), waterMeterTextField.getText(),electMeterTextField.getText(), waterUnit, electUnit , calWater, calElect, calWaterUnit, calElectUnit);
 
                 calculateSuccessfulPane.setOpacity(1);
                 calculateSuccessfulPane.setDisable(false);
                 effect.fadeInPage(calculateSuccessfulPane);
                 errorLabel.setText("");
+                clearTextField();
             } catch (NumberFormatException e) {
                 errorLabel.setText("กรุณาใส่ตัวเลข");
             }
@@ -186,36 +194,49 @@ public class CalMeterController {
         effect.fadeOutLabelEffect(errorLabel,3);
     }
 
+    public void clearLabel() {
+        lastMonthLabel.setText("0000-00-00");
+        lastMonthLabel1.setText("0000-00-00");
+        lastMonthElectLabel.setText("00000");
+        lastMonthWaterLabel.setText("0000");
+    }
+
+    public void clearTextField() {
+        waterMeterTextField.clear();
+        electMeterTextField.clear();
+    }
+
     public void datePicker(ActionEvent actionEvent) {
         datePicker.getValue();
     }
 
-    public void addCalMeterToDB(int roomNum, LocalDate date, String oldWater, String thisWater, String oldElect, String thisElect, int waterUnit, int electUnit, float calWater, float calElect, int calWaterUnit, int calElectUnit) {
+    public void addCalMeterToDB(int roomNum, LocalDate date, String thisWater, String thisElect, int waterUnit, int electUnit, float calWater, float calElect, int calWaterUnit, int calElectUnit) {
 
         try {
             Connection con = DBConnector.getConnection();
-            Statement statement = con.createStatement();
-            String sql = "INSERT INTO มิเตอร์ (เลขที่ห้องเช่า, วัน_เดือน_ปีที่จด, มิเตอร์น้ำเดือนเก่า, มิเตอร์น้ำเดือนปัจจุบัน, มิเตอร์ไฟเดือนเก่า, มิเตอร์ไฟเดือนปัจจุบัน, ราคาต่อหน่วยน้ำ, ราคาต่อหน่วยไฟ, ค่าน้ำ, ค่าไฟ, หน่วยน้ำ, หน่วยไฟ) " +
-                    "VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)";
+            String sql = "INSERT INTO การใช้น้ำใช้ไฟ (เลขที่ห้องเช่า,วัน_เดือน_ปีที่จด,เลขมิเตอร์น้ำเดือนปัจจุบัน,เลขมิเตอร์ไฟเดือนปัจจุบัน,เลขหน่วยน้ำที่ใช้,เลขหน่วยไฟที่ใช้,ราคาต่อหน่วยน้ำ,ราคาต่อหน่วยไฟ,ค่าน้ำ,ค่าไฟ) " +
+                    "VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?)";
             PreparedStatement preparedStatement = con.prepareStatement(sql);
             preparedStatement.setInt(1, roomNum);
             preparedStatement.setDate(2, Date.valueOf(date));
-            preparedStatement.setString(3, oldWater);
-            preparedStatement.setString(4, thisWater);
-            preparedStatement.setString(5, oldElect);
-            preparedStatement.setString(6, thisElect);
+            preparedStatement.setString(3, thisWater);
+            preparedStatement.setString(4, thisElect);
+            preparedStatement.setInt(5, calWaterUnit);
+            preparedStatement.setInt(6, calElectUnit);
             preparedStatement.setInt(7, waterUnit);
             preparedStatement.setInt(8, electUnit);
             preparedStatement.setFloat(9, calWater);
             preparedStatement.setFloat(10, calElect);
-            preparedStatement.setInt(11, calWaterUnit);
-            preparedStatement.setInt(12, calElectUnit);
-
             int addedRows = preparedStatement.executeUpdate();
             if (addedRows > 0) {
-                meter = new Meter(roomNum,date,oldWater,thisWater,oldElect,thisElect,waterUnit,electUnit,calWater,calElect,calWaterUnit,calElectUnit);
+                meter = new Meter(roomNum,date,thisWater,thisElect,calWaterUnit,calElectUnit,waterUnit,electUnit,calWater,calElect);
             }
-            statement.close();
+            PreparedStatement preparedStatement1 = con.prepareStatement("UPDATE ห้องเช่า SET เลขมิเตอร์น้ำ = ?,เลขมิเตอร์ไฟ = ? WHERE เลขที่ห้องเช่า = "+roomNum+";");
+            preparedStatement1.setString(1, thisWater);
+            preparedStatement1.setString(2, thisElect);
+            preparedStatement1.executeUpdate();
+            preparedStatement.close();
+            preparedStatement1.close();
             con.close();
 
 
@@ -242,5 +263,14 @@ public class CalMeterController {
     public String dateString(LocalDate date) {
         DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd/MM/YYYY");
         return date.format(formatter);
+    }
+
+    public void createInvoiceBtn(ActionEvent actionEvent) {
+        try {
+            FXRouter.goTo("CreateInvoice");
+        } catch (IOException e) {
+            System.err.println("ไปที่หน้า login_detail ไม่ได้");
+            System.err.println("ให้ตรวจสอบการกำหนด route");
+        }
     }
 }

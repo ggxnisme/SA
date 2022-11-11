@@ -86,7 +86,7 @@ public class ReceiptController {
             Statement statement = connection.createStatement();
             ResultSet resultSet = statement.executeQuery("SELECT * FROM ใบแจ้งหนี้ WHERE (เลขที่ห้องเช่า,วัน_เดือน_ปีที่ออกใบแจ้งหนี้) IN ( SELECT เลขที่ห้องเช่า, MAX(วัน_เดือน_ปีที่ออกใบแจ้งหนี้) FROM ใบแจ้งหนี้ WHERE เลขที่ห้องเช่า = "+roomNum+");");
             while (resultSet.next()) {
-                invoice = new Invoice(resultSet.getInt("เลขที่ห้องเช่า"),resultSet.getLong("เลขที่ใบแจ้งหนี้"),resultSet.getDate("วัน_เดือน_ปีที่ออกใบแจ้งหนี้").toLocalDate(),resultSet.getFloat("ค่าห้อง"),resultSet.getFloat("ยอดเงินสุทธิ"),resultSet.getFloat("ยอดเงินที่ชำระ"),resultSet.getInt("สถานะการชำระเงิน"));
+                invoice = new Invoice(resultSet.getInt("เลขที่ห้องเช่า"),resultSet.getLong("เลขที่ใบแจ้งหนี้"),resultSet.getDate("วัน_เดือน_ปีที่ออกใบแจ้งหนี้").toLocalDate(),resultSet.getFloat("ยอดเงินสุทธิ"),resultSet.getFloat("ยอดเงินที่ชำระ"),resultSet.getInt("สถานะการชำระเงิน"));
             }
         } catch (Exception e) {
             System.out.println(e);
@@ -108,23 +108,27 @@ public class ReceiptController {
         }
         else {
             addReceiptDate(datePicker.getValue());
-            errorLabel.setText("");
-        }
-        effect.fadeOutLabelEffect(errorLabel,3);
-    }
-
-    public void addReceiptDate(LocalDate date) {
-        try {
-            Connection connection = DBConnector.getConnection();
-            PreparedStatement preparedStatement = connection.prepareStatement("UPDATE ใบแจ้งหนี้ SET วัน_เดือน_ปีที่ออกใบเสร็จ = ? WHERE (เลขที่ห้องเช่า,วัน_เดือน_ปีที่ออกใบแจ้งหนี้) IN ( SELECT เลขที่ห้องเช่า, MAX(วัน_เดือน_ปีที่ออกใบแจ้งหนี้) FROM ใบแจ้งหนี้ WHERE เลขที่ห้องเช่า = "+roomNum+");");
-            preparedStatement.setDate(1, Date.valueOf(date));
-            preparedStatement.executeUpdate();
             try {
                 FXRouter.goTo("ReceiptPrint", invoice);
             } catch (IOException e) {
                 System.err.println("ไปที่หน้า login_detail ไม่ได้");
                 System.err.println("ให้ตรวจสอบการกำหนด route");
             }
+        }
+        errorLabel.setText("");
+        effect.fadeOutLabelEffect(errorLabel,3);
+    }
+
+    public void addReceiptDate(LocalDate date) {
+        try {
+            Connection connection = DBConnector.getConnection();
+            PreparedStatement preparedStatement = connection.prepareStatement("INSERT INTO ใบเสร็จ (เลขที่ห้องเช่า,เลขที่ใบแจ้งหนี้,เลขที่ใบเสร็จ,วัน_เดือน_ปีที่ออกใบเสร็จ)" +
+                    "VALUE (?,?,?,?)");
+            preparedStatement.setInt(1, invoice.getRoomNum());
+            preparedStatement.setLong(2, invoice.getInvoiceNum());
+            preparedStatement.setLong(3, Long.parseLong(invoice.getRoomNumStr()+genInvoiceNum(datePicker.getEditor().getText())));
+            preparedStatement.setDate(4, Date.valueOf(date));
+            preparedStatement.executeUpdate();
         } catch (Exception e) {
             System.out.println(e);
         }
@@ -139,9 +143,9 @@ public class ReceiptController {
         }
     }
 
-    public String dateString(Date date) {
-        SimpleDateFormat formatter = new SimpleDateFormat("dd/MM/yyyy", Locale.ENGLISH);
-        return formatter.format(date);
+    public String genInvoiceNum(String date) {
+        String[] splDate = date.split("/", 3);
+        return splDate[0]+splDate[1]+splDate[2];
     }
 
 }

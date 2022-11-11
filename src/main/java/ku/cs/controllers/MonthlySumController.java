@@ -84,15 +84,15 @@ public class MonthlySumController {
             Statement statement1 = con.createStatement();
             Statement statement2 = con.createStatement();
             ResultSet resultSet = statement.executeQuery("SELECT วัน_เดือน_ปีที่ออกใบแจ้งหนี้,ยอดเงินสุทธิ,ยอดเงินที่ชำระ FROM ใบแจ้งหนี้ WHERE (เลขที่ห้องเช่า,วัน_เดือน_ปีที่ออกใบแจ้งหนี้) IN ( SELECT เลขที่ห้องเช่า, MAX(วัน_เดือน_ปีที่ออกใบแจ้งหนี้) FROM ใบแจ้งหนี้ WHERE สถานะการชำระเงิน BETWEEN 1 AND 2 GROUP BY เลขที่ห้องเช่า);");
-            ResultSet resultSet1 = statement1.executeQuery("SELECT เลขที่ห้องเช่า,ยอดค้างชำระ FROM ลูกค้า");
-            ResultSet resultSet2 = statement2.executeQuery("SELECT ค่าน้ำ,ค่าไฟ,หน่วยน้ำ,หน่วยไฟ FROM มิเตอร์ WHERE (เลขที่ห้องเช่า,วัน_เดือน_ปีที่จด) IN ( SELECT เลขที่ห้องเช่า, MAX(วัน_เดือน_ปีที่จด) FROM มิเตอร์ GROUP BY เลขที่ห้องเช่า);");
+            ResultSet resultSet1 = statement1.executeQuery("SELECT เลขที่ห้องเช่า FROM ห้องเช่า WHERE สถานะการเข้าอยู่ = 'ไม่ว่าง'");
+            ResultSet resultSet2 = statement2.executeQuery("SELECT ค่าน้ำ,ค่าไฟ,เลขหน่วยน้ำที่ใช้,เลขหน่วยไฟที่ใช้ FROM การใช้น้ำใช้ไฟ WHERE (เลขที่ห้องเช่า,วัน_เดือน_ปีที่จด) IN ( SELECT เลขที่ห้องเช่า, MAX(วัน_เดือน_ปีที่จด) FROM การใช้น้ำใช้ไฟ GROUP BY เลขที่ห้องเช่า);");
             while (resultSet1.next()) {
                 resultSet1.getString("เลขที่ห้องเช่า");
                 roomCounter++;
             }
             while (resultSet2.next()) {
-                waterUnitCounter = waterUnitCounter + resultSet2.getInt("หน่วยน้ำ");
-                electUnitCounter = electUnitCounter + resultSet2.getInt("หน่วยไฟ");
+                waterUnitCounter = waterUnitCounter + resultSet2.getInt("เลขหน่วยน้ำที่ใช้");
+                electUnitCounter = electUnitCounter + resultSet2.getInt("เลขหน่วยไฟที่ใช้");
                 waterPriceCounter = waterPriceCounter + resultSet2.getFloat("ค่าน้ำ");
                 electPriceCounter = electPriceCounter + resultSet2.getFloat("ค่าไฟ");
             }
@@ -165,16 +165,16 @@ public class MonthlySumController {
                 Statement statement = con.createStatement();
                 Statement statement1 = con.createStatement();
                 Statement statement2 = con.createStatement();
-                ResultSet resultSet = statement.executeQuery("SELECT ยอดเงินสุทธิ,ยอดเงินที่ชำระ FROM ใบแจ้งหนี้ WHERE วัน_เดือน_ปีที่ออกใบแจ้งหนี้ = '"+convertDate(dateSearchTextField.getText())+"25'");
-                ResultSet resultSet1 = statement1.executeQuery("SELECT เลขที่ห้องเช่า FROM ลูกค้า");
-                ResultSet resultSet2 = statement2.executeQuery("SELECT ค่าน้ำ,ค่าไฟ,หน่วยน้ำ,หน่วยไฟ FROM มิเตอร์ WHERE วัน_เดือน_ปีที่จด = '" +convertDate(dateSearchTextField.getText()) + "-20'");
+                ResultSet resultSet = statement.executeQuery("SELECT ยอดเงินสุทธิ,ยอดเงินที่ชำระ FROM ใบแจ้งหนี้ WHERE วัน_เดือน_ปีที่ออกใบแจ้งหนี้ = '"+convertDate(dateSearchTextField.getText())+"-25'");
+                ResultSet resultSet1 = statement1.executeQuery("SELECT เลขที่ห้องเช่า FROM ห้องเช่า WHERE สถานะการเข้าอยู่ = 'ไม่ว่าง'");
+                ResultSet resultSet2 = statement2.executeQuery("SELECT ค่าน้ำ,ค่าไฟ,เลขหน่วยน้ำที่ใช้,เลขหน่วยไฟที่ใช้ FROM การใช้น้ำใช้ไฟ WHERE วัน_เดือน_ปีที่จด = '" +convertDate(dateSearchTextField.getText()) + "-20'");
                 while (resultSet1.next()) {
                     resultSet1.getString("เลขที่ห้องเช่า");
                     roomCounter++;
                 }
                 while (resultSet2.next()) {
-                    waterUnitCounter = waterUnitCounter + resultSet2.getInt("หน่วยน้ำ");
-                    electUnitCounter = electUnitCounter + resultSet2.getInt("หน่วยไฟ");
+                    waterUnitCounter = waterUnitCounter + resultSet2.getInt("เลขหน่วยน้ำที่ใช้");
+                    electUnitCounter = electUnitCounter + resultSet2.getInt("เลขหน่วยไฟที่ใช้");
                     waterPriceCounter = waterPriceCounter + resultSet2.getFloat("ค่าน้ำ");
                     electPriceCounter = electPriceCounter + resultSet2.getFloat("ค่าไฟ");
                 }

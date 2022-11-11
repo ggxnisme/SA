@@ -43,8 +43,9 @@
 <?import javafx.scene.layout.Pane?>
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.shape.Line?>
+<?import javafx.scene.text.Font?>
 
-<VBox prefHeight="400.0" prefWidth="640.0" xmlns="http://javafx.com/javafx/16" xmlns:fx="http://javafx.com/fxml/1" fx:controller="ku.cs.controllers.ReceiptController">
+<VBox prefHeight="600.0" prefWidth="840.0" xmlns="http://javafx.com/javafx/19" xmlns:fx="http://javafx.com/fxml/1" fx:controller="ku.cs.controllers.ReceiptController">
   <children>
       <Pane prefHeight="39.0" prefWidth="641.0" style="-fx-background-color: #1E90FF#1E90FF;">
          <children>
@@ -52,7 +53,7 @@
                <graphic>
                   <ImageView fitHeight="15.0" fitWidth="15.0">
                      <image>
-                        <Image url="@../../Image/left.png" />
+                        <Image url="@../../Image/left-arrow-2.png" />
                      </image>
                      <cursor>
                         <Cursor fx:constant="HAND" />
@@ -63,33 +64,54 @@
                   <Cursor fx:constant="HAND" />
                </cursor>
             </Button>
-            <Label alignment="CENTER" layoutX="254.0" layoutY="2.0" prefHeight="35.0" prefWidth="134.0" style="&#10;" text="ใบเสร็จรับเงิน" textAlignment="CENTER" textFill="WHITE" wrapText="false" />
+            <Label alignment="CENTER" layoutX="353.0" layoutY="2.0" prefHeight="35.0" prefWidth="134.0" style="&#10;" text="ใบเสร็จรับเงิน" textAlignment="CENTER" textFill="WHITE" wrapText="false">
+               <font>
+                  <Font size="18.0" />
+               </font></Label>
          </children>
       </Pane>
     <AnchorPane maxHeight="-1.0" maxWidth="-1.0" prefHeight="-1.0" prefWidth="-1.0" style="-fx-background-color: ffffff;" VBox.vgrow="ALWAYS">
       <children>
-            <Label layoutX="329.0" layoutY="27.0" prefHeight="23.0" prefWidth="102.0" text="วันที่ออกใบเสร็จ" />
-            <DatePicker fx:id="datePicker" layoutX="423.0" layoutY="25.0">
+            <Label layoutX="493.0" layoutY="28.0" prefHeight="23.0" prefWidth="134.0" text="วันที่ออกใบเสร็จ">
+               <font>
+                  <Font size="18.0" />
+               </font></Label>
+            <DatePicker fx:id="datePicker" layoutX="619.0" layoutY="26.0">
                <cursor>
                   <Cursor fx:constant="HAND" />
                </cursor></DatePicker>
-            <Line endX="182.5" layoutX="431.0" layoutY="62.0" startX="-100.0" stroke="DODGERBLUE" />
-            <Button layoutX="331.0" layoutY="76.0" mnemonicParsing="false" onAction="#printReceiptBtn" prefHeight="39.0" prefWidth="102.0" style="-fx-background-color: #1E90FF#1E90FF;" text="Print" textFill="WHITE">
+            <Line endX="182.5" layoutX="627.0" layoutY="63.0" startX="-135.5" stroke="DODGERBLUE" />
+            <Button layoutX="493.0" layoutY="85.0" mnemonicParsing="false" onAction="#printReceiptBtn" prefHeight="39.0" prefWidth="102.0" style="-fx-background-color: #1E90FF#1E90FF;" text="Print" textFill="WHITE">
                <cursor>
                   <Cursor fx:constant="HAND" />
-               </cursor></Button>
-            <Label accessibleRole="BUTTON" layoutX="331.0" layoutY="126.0" prefHeight="17.0" prefWidth="134.0" text="พิมพ์ใบเสร็จทั้งหมด" textFill="#3578ff" underline="true">
+               </cursor>
+               <font>
+                  <Font size="18.0" />
+               </font></Button>
+            <Label accessibleRole="BUTTON" layoutX="493.0" layoutY="131.0" prefHeight="23.0" prefWidth="154.0" text="พิมพ์ใบเสร็จทั้งหมด" textFill="#3578ff" underline="true">
                <cursor>
                   <Cursor fx:constant="HAND" />
-               </cursor></Label>
-            <ListView fx:id="roomNumList" layoutX="14.0" layoutY="44.0" prefHeight="298.0" prefWidth="154.0" style="-fx-border-color: #000000;">
+               </cursor>
+               <font>
+                  <Font size="14.0" />
+               </font></Label>
+            <ListView fx:id="roomNumList" layoutX="25.0" layoutY="62.0" prefHeight="471.0" prefWidth="224.0" style="-fx-border-color: #000000;">
                <cursor>
                   <Cursor fx:constant="HAND" />
                </cursor></ListView>
-            <ListView fx:id="statusList" layoutX="167.0" layoutY="44.0" prefHeight="298.0" prefWidth="145.0" style="-fx-border-color: #000000;" />
-            <Label alignment="CENTER" layoutX="14.0" layoutY="19.0" prefHeight="26.0" prefWidth="154.0" style="-fx-border-color: #000000; -fx-background-color: #c8e5ff#c8e5ff;" text="เลขที่ห้อง" />
-            <Label alignment="CENTER" layoutX="167.0" layoutY="19.0" prefHeight="26.0" prefWidth="145.0" style="-fx-border-color: #000000; -fx-background-color: #c8e5ff#c8e5ff;" text="สถานะการชำระเงิน" />
-            <Label fx:id="errorLabel" layoutX="330.0" layoutY="319.0" prefHeight="23.0" prefWidth="284.0" textAlignment="CENTER" textFill="RED" />
+            <ListView fx:id="statusList" layoutX="248.0" layoutY="62.0" prefHeight="471.0" prefWidth="224.0" style="-fx-border-color: #000000;" />
+            <Label alignment="CENTER" layoutX="25.0" layoutY="28.0" prefHeight="35.0" prefWidth="224.0" style="-fx-border-color: #000000; -fx-background-color: #c8e5ff#c8e5ff;" text="เลขที่ห้อง">
+               <font>
+                  <Font size="18.0" />
+               </font></Label>
+            <Label alignment="CENTER" layoutX="248.0" layoutY="28.0" prefHeight="35.0" prefWidth="224.0" style="-fx-border-color: #000000; -fx-background-color: #c8e5ff#c8e5ff;" text="สถานะการชำระเงิน">
+               <font>
+                  <Font size="18.0" />
+               </font></Label>
+            <Label fx:id="errorLabel" layoutX="509.0" layoutY="213.0" prefHeight="23.0" prefWidth="284.0" textAlignment="CENTER" textFill="RED">
+               <font>
+                  <Font size="18.0" />
+               </font></Label>
       </children>
     </AnchorPane>
   </children>

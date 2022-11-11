@@ -1,12 +1,15 @@
 package ku.cs.controllers;
 
 import com.github.saacsos.FXRouter;
+import javafx.beans.value.ChangeListener;
+import javafx.beans.value.ObservableValue;
 import javafx.event.ActionEvent;
 import javafx.event.Event;
 import javafx.fxml.FXML;
-import javafx.scene.control.Label;
-import javafx.scene.control.TextArea;
-import javafx.scene.control.TextField;
+import javafx.scene.control.*;
+import javafx.scene.input.KeyCode;
+import javafx.scene.input.KeyCodeCombination;
+import javafx.scene.input.KeyCombination;
 import ku.cs.models.Customer;
 import ku.cs.services.DBConnector;
 import ku.cs.services.Effect;
@@ -35,28 +38,59 @@ public class AddCustomerController {
 
     @FXML
     private TextField rentTextField;
+    @FXML
+    private MenuButton roomMenu;
 
     @FXML
-    private TextField roomNumTextField;
-
+    private MenuItem item;
     @FXML
     private Label errorLabel;
 
     private Effect effect;
 
+    private String roomNumber;
     public void initialize() {
         effect = new Effect();
+        showRoomMenu();
+    }
+
+    public void showRoomMenu() {
+        try {
+            Connection con = DBConnector.getConnection();
+            Statement statement = con.createStatement();
+            ResultSet resultSet = statement.executeQuery("SELECT เลขที่ห้องเช่า FROM ห้องเช่า WHERE สถานะการเข้าอยู่ = 'ว่าง'");
+            while (resultSet.next()) {
+                String เลขที่ห้องเช่า = resultSet.getString(1);
+                String listOut = เลขที่ห้องเช่า;
+                item = new MenuItem(listOut);
+                roomMenu.getItems().add(item);
+                item.setOnAction((ActionEvent e)-> {
+                    roomNumPick(listOut);
+                    roomMenu.setText(listOut);
+                });
+
+            }
+        } catch (Exception e) {
+            System.out.println(e);
+        }
+    }
+
+    public void roomNumPick(String roomNum) {
+        this.roomNumber = roomNum;
     }
 
     public void clickToSave(ActionEvent actionEvent) {
 
-        if (idTextField.getText().isEmpty() || roomNumTextField.getText().isEmpty() || nameTextField.getText().isEmpty() || addressTextField.getText().isEmpty() || phoneTextField.getText().isEmpty() || rentTextField.getText().isEmpty() || rentTextField.getText().isEmpty() || depositTextField.getText().isEmpty()) {
+        if (idTextField.getText().isEmpty() || roomNumber == null || nameTextField.getText().isEmpty() || addressTextField.getText().isEmpty() || phoneTextField.getText().isEmpty() || rentTextField.getText().isEmpty() || depositTextField.getText().isEmpty()) {
             errorLabel.setText("กรุณาใส่ข้อมูลให้ครบถ้วน");
+        }
+        else if ((idTextField.getText().length() < 13 && idTextField.getText().length() > 13) || (phoneTextField.getText().length() < 10 && phoneTextField.getText().length() > 10)) {
+            errorLabel.setText("กรุณาใส่ข้อมูลให้ถูกต้อง");
         }
         else {
             try {
                 String id = idTextField.getText();
-                int roomNum = Integer.parseInt(roomNumTextField.getText());
+                int roomNum = Integer.parseInt(roomNumber);
                 String name = nameTextField.getText();
                 String address = addressTextField.getText();
                 String phone = phoneTextField.getText();
@@ -81,8 +115,7 @@ public class AddCustomerController {
 
         try {
             Connection con = DBConnector.getConnection();
-            Statement statement = con.createStatement();
-            String sql = "INSERT INTO ลูกค้า (เลขที่ห้องเช่า, เลขบัตรประชาชน, ชื่อ_นามสกุล, ที่อยู่ตามทะเบียนบ้าน, เบอร์โทรศัพท์, ระยะเวลาเช่า, เงินประกัน, ยอดค้างชำระ) " +
+            String sql = "INSERT INTO ลูกค้า (เลขที่ห้องเช่า, เลขบัตรประชาชน, ชื่อ_นามสกุล, ที่อยู่, เบอร์โทรศัพท์, ระยะเวลาเช่า, เงินประกัน, ยอดค้างชำระ) " +
                     "VALUES (?, ?, ?, ?, ?, ?, ?, ?)";
             PreparedStatement preparedStatement = con.prepareStatement(sql);
             preparedStatement.setInt(1, roomNum);
@@ -93,13 +126,16 @@ public class AddCustomerController {
             preparedStatement.setString(6, rent);
             preparedStatement.setInt(7, deposit);
             preparedStatement.setInt(8, 0);
-
             int addedRows = preparedStatement.executeUpdate();
             if (addedRows > 0) {
                 customer = new Customer(roomNum, id, name, address, phone, rent, deposit);
             }
+            PreparedStatement preparedStatement1 = con.prepareStatement("UPDATE ห้องเช่า SET สถานะการเข้าอยู่ = ? WHERE เลขที่ห้องเช่า = "+roomNumber+";");
+            preparedStatement1.setString(1, "ไม่ว่าง");
+            preparedStatement1.executeUpdate();
             clear();
-            statement.close();
+            preparedStatement.close();
+            preparedStatement1.close();
             con.close();
 
 
@@ -109,7 +145,6 @@ public class AddCustomerController {
     }
 
     public void clear() {
-        roomNumTextField.clear();
         idTextField.clear();
         nameTextField.clear();
         addressTextField.clear();
