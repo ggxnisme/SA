@@ -42,8 +42,8 @@ public class TenantsController {
 
     public void showTenantsData() {
         roomNumberLabel.setText(String.valueOf(customer.getRoomNum()));
-        DepositLabel.setText(String.format(",%.2f",customer.getDeposit()));
-        OwedLabel.setText(String.format(",%.2f",customer.getOwed()));
+        DepositLabel.setText(String.format("%,.2f",customer.getDeposit()));
+        OwedLabel.setText(String.format("%,.2f",customer.getOwed()));
         addressLabel.setText(customer.getAddress());
         nameLabel.setText(customer.getName());
         idLabel.setText(customer.getIdCard());

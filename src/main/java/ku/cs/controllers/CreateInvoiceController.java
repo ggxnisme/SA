@@ -57,6 +57,8 @@ public class CreateInvoiceController {
 
     private Effect effect;
 
+    private String roomNum;
+
 
     public void initialize() {
         showListViewInCreateInv();
@@ -88,6 +90,8 @@ public class CreateInvoiceController {
                     @Override
                     public void changed(ObservableValue<? extends String> observableValue, String s, String t1) {
                         showDataFromDB(t1);
+                        roomNum = t1;
+                        invoiceNumberTextField.setText("");
                     }
                 }
         );
@@ -137,21 +141,25 @@ public class CreateInvoiceController {
         }
         else {
             try {
-                invoiceNumberTextField.setText(roomText.getText()+genInvoiceNum(datePicker.getEditor().getText()));
-                long invoiceNumber = Long.parseLong(roomText.getText()+genInvoiceNum(datePicker.getEditor().getText()));
-                float roomPrice = Float.parseFloat(roomPriceTotalText.getText());
-                float waterPrice = Float.parseFloat(waterPriceTotalText.getText());
-                float electPrice = Float.parseFloat(elecPriceTotalText.getText());
-                float owedPrice = Float.parseFloat(owedTotalText.getText());
-                float calInvoice = calInvoice(roomPrice, waterPrice, electPrice, owedPrice);
-                totalPriceText.setText(String.format("%,.2f",calInvoice));
-
-                addCalInvoiceToDB(Integer.parseInt(roomText.getText()), invoiceNumber, datePicker.getValue(), calInvoice, 0, 0);
-
+                Connection connection = DBConnector.getConnection();
+                Statement statement = connection.createStatement();
+                Statement statement1 = connection.createStatement();
+                Statement statement2 = connection.createStatement();
+                ResultSet resultSet = statement.executeQuery("SELECT ค่าห้อง FROM ห้องเช่า WHERE เลขที่ห้องเช่า ="+roomNum);
+                ResultSet resultSet1 = statement1.executeQuery("SELECT ค่าน้ำ,ค่าไฟ FROM การใช้น้ำใช้ไฟ WHERE (เลขที่ห้องเช่า,วัน_เดือน_ปีที่จด) IN (SELECT เลขที่ห้องเช่า,MAX(วัน_เดือน_ปีที่จด) FROM การใช้น้ำใช้ไฟ WHERE เลขที่ห้องเช่า = "+roomNum+");");
+                ResultSet resultSet2 = statement2.executeQuery("SELECT ยอดค้างชำระ FROM ลูกค้า WHERE เลขที่ห้องเช่า ="+roomNum);
+                while (resultSet.next() && resultSet1.next() && resultSet2.next()) {
+                    float calInvoice = calInvoice(resultSet.getFloat("ค่าห้อง"), resultSet1.getFloat("ค่าน้ำ"), resultSet1.getFloat("ค่าไฟ"), resultSet2.getFloat("ยอดค้างชำระ"));
+                    totalPriceText.setText(String.format("%,.2f",calInvoice));
+                    invoiceNumberTextField.setText(roomText.getText()+genInvoiceNum(datePicker.getEditor().getText()));
+                    long invoiceNumber = Long.parseLong(roomText.getText()+genInvoiceNum(datePicker.getEditor().getText()));
+                    addCalInvoiceToDB(Integer.parseInt(roomText.getText()), invoiceNumber, datePicker.getValue(), calInvoice, 0, 0);
+                }
+                errorLabel.setText("");
                 calculateSuccessfulPane.setOpacity(1);
                 calculateSuccessfulPane.setDisable(false);
                 effect.fadeInPage(calculateSuccessfulPane);
-                errorLabel.setText("");
+
             } catch (Exception e) {
                 System.out.println(e);
             }

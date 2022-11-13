@@ -106,6 +106,10 @@ public class CalMeterController {
                     @Override
                     public void changed(ObservableValue<? extends String> observableValue, String s, String t1) {
                         showDataFromDB(t1);
+                        waterBillLabel.setText("");
+                        electBillLabel.setText("");
+                        waterUnitLabel.setText("");
+                        electUnitLabel.setText("");
                     }
                 }
         );
@@ -181,11 +185,11 @@ public class CalMeterController {
                 waterUnitLabel.setText(Integer.toString(calWaterUnit));
 
                 addCalMeterToDB(Integer.parseInt(roomNumberLabel.getText()), datePicker.getValue(), waterMeterTextField.getText(),electMeterTextField.getText(), waterUnit, electUnit , calWater, calElect, calWaterUnit, calElectUnit);
-
+                errorLabel.setText("");
                 calculateSuccessfulPane.setOpacity(1);
                 calculateSuccessfulPane.setDisable(false);
                 effect.fadeInPage(calculateSuccessfulPane);
-                errorLabel.setText("");
+
                 clearTextField();
             } catch (NumberFormatException e) {
                 errorLabel.setText("กรุณาใส่ตัวเลข");

@@ -108,6 +108,7 @@ public class ReceiptController {
         }
         else {
             addReceiptDate(datePicker.getValue());
+            errorLabel.setText("");
             try {
                 FXRouter.goTo("ReceiptPrint", invoice);
             } catch (IOException e) {
@@ -115,7 +116,6 @@ public class ReceiptController {
                 System.err.println("ให้ตรวจสอบการกำหนด route");
             }
         }
-        errorLabel.setText("");
         effect.fadeOutLabelEffect(errorLabel,3);
     }
 

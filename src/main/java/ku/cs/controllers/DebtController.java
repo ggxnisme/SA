@@ -1,6 +1,9 @@
 package ku.cs.controllers;
 
 import com.github.saacsos.FXRouter;
+import javafx.beans.value.ChangeListener;
+import javafx.beans.value.ObservableValue;
+import javafx.event.ActionEvent;
 import javafx.event.Event;
 import javafx.fxml.FXML;
 import javafx.scene.control.ListView;
@@ -8,6 +11,7 @@ import ku.cs.services.DBConnector;
 
 import java.io.IOException;
 import java.sql.Connection;
+import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.Statement;
 
@@ -22,29 +26,29 @@ public class DebtController {
     @FXML
     private ListView<String> roomNumList;
 
+    private String room;
+
     public void initialize() {
         showData();
+        handleSelectedListView();
     }
 
     public void showData() {
-
         try {
             Connection connection = DBConnector.getConnection();
             Statement statement = connection.createStatement();
-            ResultSet resultSet = statement.executeQuery("SELECT เลขที่ห้องเช่า, ยอดค้างชำระ, เงินประกัน FROM ลูกค้า;");
+            ResultSet resultSet = statement.executeQuery("SELECT เลขที่ห้องเช่า, ยอดค้างชำระ, เงินประกัน FROM ลูกค้า ORDER BY เลขที่ห้องเช่า ASC");
 
             while (resultSet.next()) {
                 String เลขที่ห้องเช่า = resultSet.getString("เลขที่ห้องเช่า");
                 String listOut = เลขที่ห้องเช่า;
-                String ยอดค้างชำระ = String.format("%.2f",resultSet.getFloat("ยอดค้างชำระ"));
+                String ยอดค้างชำระ = String.format("%,.2f",resultSet.getFloat("ยอดค้างชำระ"));
                 String listOut1 = ยอดค้างชำระ;
-                String เงินประกัน = String.format("%.2f",resultSet.getFloat("เงินประกัน"));
+                String เงินประกัน = String.format("%,.2f",resultSet.getFloat("เงินประกัน"));
                 String listOut2 = เงินประกัน;
                 roomNumList.getItems().add(listOut);
                 owedListView.getItems().add(listOut1);
                 depositListView.getItems().add(listOut2);
-                roomNumList.setMouseTransparent(true);
-                roomNumList.setFocusTraversable(false);
                 owedListView.setMouseTransparent(true);
                 owedListView.setFocusTraversable(false);
                 depositListView.setMouseTransparent(true);
@@ -54,6 +58,51 @@ public class DebtController {
             connection.close();
 
         } catch (Exception e) {
+            System.out.println(e);
+        }
+    }
+
+    public void handleSelectedListView() {
+        roomNumList.getSelectionModel().selectedItemProperty().addListener(
+                new ChangeListener<String>() {
+                    @Override
+                    public void changed(ObservableValue<? extends String> observableValue, String s, String t1) {
+                        room = t1;
+                    }
+                }
+        );
+    }
+
+    @FXML
+    void deleteDepositBtn(ActionEvent event) {
+        try {
+            Connection connection = DBConnector.getConnection();
+            Statement statement = connection.createStatement();
+            ResultSet resultSet = statement.executeQuery("SELECT เงินประกัน,ยอดค้างชำระ FROM ลูกค้า WHERE เลขที่ห้องเช่า = "+room);
+            while (resultSet.next()) {
+                updateData(resultSet.getFloat("เงินประกัน"),resultSet.getFloat("ยอดค้างชำระ"));
+            }
+            roomNumList.getItems().clear();
+            depositListView.getItems().clear();
+            owedListView.getItems().clear();
+            showData();
+            statement.close();
+            connection.close();
+        } catch (Exception e) {
+            System.out.println(e);
+        }
+    }
+
+    public void updateData(float dep, float ow) {
+        try {
+            Connection connection = DBConnector.getConnection();
+            PreparedStatement preparedStatement = connection.prepareStatement("UPDATE ลูกค้า SET เงินประกัน = ?, ยอดค้างชำระ = ? WHERE เลขที่ห้องเช่า = "+room);
+            preparedStatement.setFloat(1, dep - dep);
+            preparedStatement.setFloat(2, ow - ow);
+            preparedStatement.executeUpdate();
+            preparedStatement.close();
+            connection.close();
+        }catch (Exception e) {
             System.out.println(e);
         }
     }

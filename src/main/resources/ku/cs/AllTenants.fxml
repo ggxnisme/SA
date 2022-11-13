@@ -36,15 +36,19 @@
 <?import javafx.scene.control.Button?>
 <?import javafx.scene.control.Label?>
 <?import javafx.scene.control.ListView?>
+<?import javafx.scene.control.MenuButton?>
+<?import javafx.scene.effect.DropShadow?>
 <?import javafx.scene.image.Image?>
 <?import javafx.scene.image.ImageView?>
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.layout.Pane?>
 <?import javafx.scene.layout.VBox?>
+<?import javafx.scene.paint.Color?>
 <?import javafx.scene.shape.Rectangle?>
 <?import javafx.scene.text.Font?>
 
-<VBox prefHeight="600.0" prefWidth="840.0" xmlns="http://javafx.com/javafx/16" xmlns:fx="http://javafx.com/fxml/1" fx:controller="ku.cs.controllers.AllTenantsController">
+<?import javafx.scene.control.ListCell?>
+<VBox prefHeight="600.0" prefWidth="840.0" xmlns="http://javafx.com/javafx/19" xmlns:fx="http://javafx.com/fxml/1" fx:controller="ku.cs.controllers.AllTenantsController">
   <children>
       <Pane prefHeight="39.0" prefWidth="840.0" style="-fx-background-color: #1E90FF#1E90FF;">
          <children>
@@ -76,10 +80,6 @@
                <font>
                   <Font size="18.0" />
                </font></Label>
-            <Label fx:id="roomNumLabel" layoutX="278.0" layoutY="57.0" prefHeight="17.0" prefWidth="113.0">
-               <font>
-                  <Font size="18.0" />
-               </font></Label>
             <Label layoutX="174.0" layoutY="104.0" text="เงินประกัน">
                <font>
                   <Font size="18.0" />
@@ -92,8 +92,8 @@
                <font>
                   <Font size="18.0" />
                </font></Label>
-            <Rectangle accessibleRole="PARENT" arcHeight="5.0" arcWidth="5.0" fill="#ffffff00" height="360.0" layoutX="150.0" layoutY="184.0" stroke="DODGERBLUE" strokeType="INSIDE" width="665.0" />
-            <Label layoutX="174.0" layoutY="236.0" text="ชื่อ-นามสกุล">
+            <Rectangle accessibleRole="PARENT" arcHeight="5.0" arcWidth="5.0" fill="#ffffff00" height="360.0" layoutX="156.0" layoutY="179.0" stroke="DODGERBLUE" strokeType="INSIDE" width="665.0" />
+            <Label layoutX="174.0" layoutY="222.0" text="ชื่อ-นามสกุล">
                <font>
                   <Font size="18.0" />
                </font></Label>
@@ -101,47 +101,19 @@
                <font>
                   <Font size="18.0" />
                </font></Label>
-            <Label fx:id="nameLabel" layoutX="322.0" layoutY="236.0" prefHeight="17.0" prefWidth="356.0">
-               <font>
-                  <Font size="18.0" />
-               </font></Label>
-            <Label fx:id="Owed" layoutX="601.0" layoutY="59.0" prefHeight="17.0" prefWidth="163.0">
-               <font>
-                  <Font size="18.0" />
-               </font></Label>
-            <Label fx:id="depositLabel" layoutX="278.0" layoutY="104.0" prefHeight="17.0" prefWidth="113.0">
-               <font>
-                  <Font size="18.0" />
-               </font></Label>
-            <Label fx:id="rentalPeriodLabel" layoutX="601.0" layoutY="106.0" prefHeight="17.0" prefWidth="163.0">
-               <font>
-                  <Font size="18.0" />
-               </font></Label>
             <Label alignment="CENTER" layoutX="160.0" layoutY="14.0" prefHeight="23.0" prefWidth="113.0" style="-fx-background-color: ffffff;" text="ข้อมูลการเช่า" textAlignment="CENTER">
                <font>
                   <Font size="18.0" />
                </font></Label>
-            <Label layoutX="174.0" layoutY="364.0" text="เบอร์โทรศัพท์">
+            <Label layoutX="172.0" layoutY="322.0" text="เบอร์โทรศัพท์">
                <font>
                   <Font size="18.0" />
                </font></Label>
-            <Label layoutX="174.0" layoutY="430.0" text="ที่อยู่ตามทะเบียนบ้าน">
+            <Label layoutX="172.0" layoutY="376.0" text="ที่อยู่ตามทะเบียนบ้าน">
                <font>
                   <Font size="18.0" />
                </font></Label>
-            <Label fx:id="idLabel" layoutX="322.0" layoutY="297.0" prefHeight="17.0" prefWidth="332.0">
-               <font>
-                  <Font size="18.0" />
-               </font></Label>
-            <Label fx:id="phoneLabel" layoutX="322.0" layoutY="364.0" prefHeight="17.0" prefWidth="356.0">
-               <font>
-                  <Font size="18.0" />
-               </font></Label>
-            <Label fx:id="addressLabel" alignment="TOP_LEFT" layoutX="351.0" layoutY="430.0" prefHeight="92.0" prefWidth="439.0" wrapText="true">
-               <font>
-                  <Font size="18.0" />
-               </font></Label>
-            <Label layoutX="174.0" layoutY="297.0" text="เลขบัตรประชาชน">
+            <Label layoutX="174.0" layoutY="269.0" text="เลขบัตรประชาชน">
                <font>
                   <Font size="18.0" />
                </font></Label>
@@ -156,6 +128,86 @@
                         <Font size="18.0" />
                      </font></Label>
                </children>
+            </Pane>
+            <MenuButton fx:id="roomNumMenuBtn" layoutX="265.0" layoutY="56.0" mnemonicParsing="false" prefHeight="17.0" prefWidth="113.0">
+               <font>
+                  <Font size="14.0" />
+               </font>
+               <cursor>
+                  <Cursor fx:constant="HAND" />
+               </cursor>
+            </MenuButton>
+            <Button layoutX="700.0" layoutY="485.0" mnemonicParsing="false" onAction="#saveBtn" prefHeight="40.0" prefWidth="91.0" style="-fx-background-color: #1E90FF#1E90FF;" text="บันทึก" textFill="WHITE">
+               <cursor>
+                  <Cursor fx:constant="HAND" />
+               </cursor>
+               <font>
+                  <Font size="18.0" />
+               </font>
+            </Button>
+            <Label fx:id="errorLabel" layoutX="159.0" layoutY="505.0" prefHeight="27.0" prefWidth="326.0" textAlignment="CENTER" textFill="RED">
+               <font>
+                  <Font size="18.0" />
+               </font>
+            </Label>
+            <Label fx:id="owedLabel" layoutX="601.0" layoutY="59.0" prefHeight="11.0" prefWidth="163.0">
+               <font>
+                  <Font size="18.0" />
+               </font>
+            </Label>
+            <Label fx:id="depositTextField" layoutX="278.0" layoutY="104.0" prefHeight="11.0" prefWidth="113.0">
+               <font>
+                  <Font size="18.0" />
+               </font>
+            </Label>
+            <Label fx:id="rentTextField" layoutX="601.0" layoutY="106.0" prefHeight="17.0" prefWidth="163.0">
+               <font>
+                  <Font size="18.0" />
+               </font>
+            </Label>
+            <Label fx:id="nameTextField" layoutX="322.0" layoutY="221.0" prefHeight="17.0" prefWidth="356.0">
+               <font>
+                  <Font size="18.0" />
+               </font>
+            </Label>
+            <Label fx:id="idTextField" layoutX="322.0" layoutY="269.0" prefHeight="17.0" prefWidth="332.0">
+               <font>
+                  <Font size="18.0" />
+               </font>
+            </Label>
+            <Label fx:id="phoneTextField" layoutX="322.0" layoutY="322.0" prefHeight="17.0" prefWidth="356.0">
+               <font>
+                  <Font size="18.0" />
+               </font>
+            </Label>
+            <Label fx:id="addressTextField" alignment="TOP_LEFT" layoutX="345.0" layoutY="376.0" prefHeight="92.0" prefWidth="439.0">
+               <font>
+                  <Font size="18.0" />
+               </font>
+            </Label>
+            <Pane fx:id="saveSuccessfulPane" layoutX="379.0" layoutY="237.0" prefHeight="86.0" prefWidth="217.0" style="-fx-background-color: #FFFFFF;" styleClass="product-card-background" stylesheets="@../../styles/styles.css">
+               <children>
+                  <Label alignment="CENTER" layoutX="35.0" layoutY="30.0" prefHeight="27.0" prefWidth="148.0" text="Save Success" textAlignment="CENTER">
+                     <font>
+                        <Font name="System Bold" size="18.0" />
+                     </font>
+                  </Label>
+                  <Label layoutX="199.0" layoutY="-2.0" onMouseClicked="#handleCloseCalculateSuccess" text="x">
+                     <font>
+                        <Font name="System Bold" size="22.0" />
+                     </font>
+                     <cursor>
+                        <Cursor fx:constant="HAND" />
+                     </cursor>
+                  </Label>
+               </children>
+               <effect>
+                  <DropShadow height="30.05" radius="14.525" width="30.05">
+                     <color>
+                        <Color opacity="0.6086021065711975" />
+                     </color>
+                  </DropShadow>
+               </effect>
             </Pane>
       </children>
     </AnchorPane>

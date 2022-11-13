@@ -70,9 +70,12 @@
       </Pane>
     <AnchorPane maxHeight="-1.0" maxWidth="-1.0" prefHeight="-1.0" prefWidth="-1.0" style="-fx-background-color: ffffff;" VBox.vgrow="ALWAYS">
          <children>
-            <ListView fx:id="roomNumList" layoutX="34.0" layoutY="68.0" prefHeight="465.0" prefWidth="241.0" style="-fx-border-color: #000000;" />
-            <ListView fx:id="owedListView" layoutX="274.0" layoutY="68.0" prefHeight="465.0" prefWidth="267.0" style="-fx-border-color: #000000;" />
-            <ListView fx:id="depositListView" layoutX="540.0" layoutY="68.0" prefHeight="465.0" prefWidth="267.0" style="-fx-border-color: #000000;" />
+            <ListView fx:id="roomNumList" layoutX="34.0" layoutY="68.0" prefHeight="458.0" prefWidth="241.0" style="-fx-border-color: #000000;">
+               <cursor>
+                  <Cursor fx:constant="HAND" />
+               </cursor></ListView>
+            <ListView fx:id="owedListView" layoutX="274.0" layoutY="68.0" prefHeight="458.0" prefWidth="267.0" style="-fx-border-color: #000000;" />
+            <ListView fx:id="depositListView" layoutX="540.0" layoutY="68.0" prefHeight="419.0" prefWidth="267.0" style="-fx-border-color: #000000;" />
             <Label alignment="CENTER" layoutX="34.0" layoutY="29.0" prefHeight="40.0" prefWidth="241.0" style="-fx-border-color: #000000; -fx-background-color: #c8e5ff#c8e5ff;" text="เลขที่ห้อง">
                <font>
                   <Font size="18.0" />
@@ -85,6 +88,21 @@
                <font>
                   <Font size="18.0" />
                </font></Label>
+            <Button contentDisplay="RIGHT" layoutX="540.0" layoutY="487.0" mnemonicParsing="false" onAction="#deleteDepositBtn" prefHeight="37.0" prefWidth="267.0" style="-fx-background-color: #1E90FF#1E90FF #1E90FF#1E90FF;" text="หักเงินประกัน" textFill="WHITE">
+               <font>
+                  <Font size="18.0" />
+               </font>
+               <graphic>
+                  <ImageView fitHeight="25.0" fitWidth="33.0" pickOnBounds="true" preserveRatio="true">
+                     <image>
+                        <Image url="@../../Image/trash.png" />
+                     </image>
+                  </ImageView>
+               </graphic>
+               <cursor>
+                  <Cursor fx:constant="HAND" />
+               </cursor>
+            </Button>
          </children>
     </AnchorPane>
   </children>

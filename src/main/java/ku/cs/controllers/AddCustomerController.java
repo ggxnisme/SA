@@ -84,7 +84,16 @@ public class AddCustomerController {
         if (idTextField.getText().isEmpty() || roomNumber == null || nameTextField.getText().isEmpty() || addressTextField.getText().isEmpty() || phoneTextField.getText().isEmpty() || rentTextField.getText().isEmpty() || depositTextField.getText().isEmpty()) {
             errorLabel.setText("กรุณาใส่ข้อมูลให้ครบถ้วน");
         }
-        else if ((idTextField.getText().length() < 13 && idTextField.getText().length() > 13) || (phoneTextField.getText().length() < 10 && phoneTextField.getText().length() > 10)) {
+        else if ((idTextField.getText().length() != 13)) {
+            errorLabel.setText("กรุณาใส่เลขบัตรประชาชนให้ครบถ้วน");
+        }
+        else if ((phoneTextField.getText().length() != 10)) {
+            errorLabel.setText("กรุณาใส่เบอร์โทรศัพท์ให้ครบถ้วน");
+        }
+        else if (Integer.parseInt(depositTextField.getText()) < 2000) {
+            errorLabel.setText("กรุณาใส่ข้อมูลให้ถูกต้อง");
+        }
+        else if (Integer.parseInt(rentTextField.getText()) < 0) {
             errorLabel.setText("กรุณาใส่ข้อมูลให้ถูกต้อง");
         }
         else {
