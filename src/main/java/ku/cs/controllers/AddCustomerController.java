@@ -52,6 +52,40 @@ public class AddCustomerController {
     public void initialize() {
         effect = new Effect();
         showRoomMenu();
+        phoneTextField.setTextFormatter(new TextFormatter<>(change -> {
+            if (change.getText().matches("[0-9]*")) {
+                return change;
+            }
+            return null;
+        }));
+
+        idTextField.setTextFormatter(new TextFormatter<>(change -> {
+            if (change.getText().matches("[0-9]*")) {
+                return change;
+            }
+            return null;
+        }));
+
+        rentTextField.setTextFormatter(new TextFormatter<>(change -> {
+            if (change.getText().matches("[0-9]*")) {
+                return change;
+            }
+            return null;
+        }));
+
+        depositTextField.setTextFormatter(new TextFormatter<>(change -> {
+            if (change.getText().matches("[0-9]*")) {
+                return change;
+            }
+            return null;
+        }));
+
+        nameTextField.setTextFormatter(new TextFormatter<>(change -> {
+            if (change.getText().matches("[ูa-zA-zก-ฮะ-์ //]*")) {
+                return change;
+            }
+            return null;
+        }));
     }
 
     public void showRoomMenu() {
@@ -90,7 +124,7 @@ public class AddCustomerController {
         else if ((phoneTextField.getText().length() != 10)) {
             errorLabel.setText("กรุณาใส่เบอร์โทรศัพท์ให้ครบถ้วน");
         }
-        else if (Integer.parseInt(depositTextField.getText()) < 2000) {
+        else if (Integer.parseInt(depositTextField.getText()) < 5000) {
             errorLabel.setText("กรุณาใส่ข้อมูลให้ถูกต้อง");
         }
         else if (Integer.parseInt(rentTextField.getText()) < 0) {

@@ -6,6 +6,7 @@ import javafx.event.Event;
 import javafx.fxml.FXML;
 import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
+import javafx.scene.control.TextFormatter;
 import javafx.scene.layout.Pane;
 import ku.cs.services.DBConnector;
 import ku.cs.services.Effect;
@@ -60,6 +61,19 @@ public class PaymentController {
         room = new ArrayList<>();
         saveSuccessfulPane.setDisable(true);
         saveSuccessfulPane.setOpacity(0);
+        paidTextField.setTextFormatter(new TextFormatter<>(change -> {
+            if (change.getText().matches("[0-9]*")) {
+                return change;
+            }
+            return null;
+        }));
+
+        roomTextField.setTextFormatter(new TextFormatter<>(change -> {
+            if (change.getText().matches("[0-9]*")) {
+                return change;
+            }
+            return null;
+        }));
     }
 
     public void roomSearchBtn(ActionEvent actionEvent) {

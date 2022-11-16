@@ -6,10 +6,7 @@ import javafx.beans.value.ObservableValue;
 import javafx.event.ActionEvent;
 import javafx.event.Event;
 import javafx.fxml.FXML;
-import javafx.scene.control.DatePicker;
-import javafx.scene.control.Label;
-import javafx.scene.control.ListView;
-import javafx.scene.control.TextField;
+import javafx.scene.control.*;
 import javafx.scene.layout.Pane;
 import ku.cs.models.Customer;
 import ku.cs.models.Meter;
@@ -82,6 +79,19 @@ public class CalMeterController {
         effect = new Effect();
         calculateSuccessfulPane.setDisable(true);
         calculateSuccessfulPane.setOpacity(0);
+        waterMeterTextField.setTextFormatter(new TextFormatter<>(change -> {
+            if (change.getText().matches("[0-9]*")) {
+                return change;
+            }
+            return null;
+        }));
+
+        electMeterTextField.setTextFormatter(new TextFormatter<>(change -> {
+            if (change.getText().matches("[0-9]*")) {
+                return change;
+            }
+            return null;
+        }));
     }
 
 

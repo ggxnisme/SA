@@ -6,8 +6,10 @@ import javafx.beans.value.ObservableValue;
 import javafx.event.ActionEvent;
 import javafx.event.Event;
 import javafx.fxml.FXML;
+import javafx.scene.control.Label;
 import javafx.scene.control.ListView;
 import ku.cs.services.DBConnector;
+import ku.cs.services.Effect;
 
 import java.io.IOException;
 import java.sql.Connection;
@@ -26,9 +28,15 @@ public class DebtController {
     @FXML
     private ListView<String> roomNumList;
 
+    @FXML
+    private Label errorLabel;
+
+    private Effect effect;
+
     private String room;
 
     public void initialize() {
+        effect = new Effect();
         showData();
         handleSelectedListView();
     }
@@ -75,12 +83,21 @@ public class DebtController {
 
     @FXML
     void deleteDepositBtn(ActionEvent event) {
+        if (room == null) {
+            errorLabel.setText("กรุณาเลือกห้อง");
+        }
         try {
             Connection connection = DBConnector.getConnection();
             Statement statement = connection.createStatement();
             ResultSet resultSet = statement.executeQuery("SELECT เงินประกัน,ยอดค้างชำระ FROM ลูกค้า WHERE เลขที่ห้องเช่า = "+room);
             while (resultSet.next()) {
-                updateData(resultSet.getFloat("เงินประกัน"),resultSet.getFloat("ยอดค้างชำระ"));
+                if (resultSet.getFloat("ยอดค้างชำระ") >= resultSet.getFloat("เงินประกัน")) {
+                    updateData(resultSet.getFloat("เงินประกัน"),resultSet.getFloat("ยอดค้างชำระ"));
+                    errorLabel.setText("");
+                }
+                else {
+                    errorLabel.setText("ไม่สามารถหักเงินประกันได้");
+                }
             }
             roomNumList.getItems().clear();
             depositListView.getItems().clear();
@@ -91,6 +108,7 @@ public class DebtController {
         } catch (Exception e) {
             System.out.println(e);
         }
+        effect.fadeOutLabelEffect(errorLabel,3);
     }
 
     public void updateData(float dep, float ow) {
