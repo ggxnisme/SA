@@ -125,7 +125,7 @@ public class AllTenantsController {
         try {
             Connection connection = DBConnector.getConnection();
             Statement statement = connection.createStatement();
-            ResultSet resultSet = statement.executeQuery("select * FROM ลูกค้า WHERE เลขที่ห้องเช่า = "+t1+";");
+            ResultSet resultSet = statement.executeQuery("SELECT * FROM ลูกค้า WHERE เลขที่ห้องเช่า = "+t1+";");
             while (resultSet.next()) {
                 nameTextField.setText(resultSet.getString("ชื่อ_นามสกุล"));
                 idTextField.setText(resultSet.getString("เลขบัตรประชาชน"));
@@ -154,7 +154,7 @@ public class AllTenantsController {
             errorLabel.setText("");
         } catch (NumberFormatException e) {
             System.out.println(e);
-            errorLabel.setText("กรุณาใส่ข้อมูลให้ถูกต้อง");
+            errorLabel.setText("กรุณาเลือกห้อง");
         }
         effect.fadeOutLabelEffect(errorLabel,3);
     }
@@ -162,7 +162,7 @@ public class AllTenantsController {
     public void updateCustomerToDB(int roomNum) {
         try {
             Connection connection = DBConnector.getConnection();
-            PreparedStatement preparedStatement = connection.prepareStatement("UPDATE ลูกค้า SET เลขที่ห้องเช่า = ? WHERE เลขที่ห้องเช่า ="+room);
+            PreparedStatement preparedStatement = connection.prepareStatement("UPDATE ลูกค้า SET เลขที่ห้องเช่า = ? WHERE เลขที่ห้องเช่า = "+room);
             PreparedStatement preparedStatement1 = connection.prepareStatement("UPDATE ห้องเช่า SET สถานะการเข้าอยู่ = ? WHERE เลขที่ห้องเช่า = "+room);
             PreparedStatement preparedStatement2 = connection.prepareStatement("UPDATE ห้องเช่า SET สถานะการเข้าอยู่ = ? WHERE เลขที่ห้องเช่า = "+roomNumber);
             preparedStatement.setInt(1,roomNum);

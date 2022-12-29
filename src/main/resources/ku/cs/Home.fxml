@@ -74,7 +74,7 @@
                   <Font size="18.0" />
                </font>
             </Button>
-            <Button alignment="CENTER" contentDisplay="TOP" layoutX="433.0" layoutY="107.0" mnemonicParsing="false" onAction="#clickCalFacility" prefHeight="174.0" prefWidth="174.0" style="-fx-background-color: ffffff;" text="คำนวณค่าน้ำ/ไฟ">
+            <Button alignment="CENTER" contentDisplay="TOP" layoutX="433.0" layoutY="107.0" mnemonicParsing="false" onAction="#clickCalFacility" prefHeight="174.0" prefWidth="174.0" style="-fx-background-color: ffffff;" text="บันทึกการใช้น้ำใช้ไฟ">
                <graphic>
                   <ImageView accessibleRole="BUTTON" fitHeight="125.0" fitWidth="125.0">
                      <image>
@@ -104,7 +104,7 @@
                   <Font size="18.0" />
                </font>
             </Button>
-            <Button alignment="CENTER" contentDisplay="TOP" layoutX="35.0" layoutY="320.0" mnemonicParsing="false" onAction="#clickCheckPayment" prefHeight="174.0" prefWidth="174.0" style="-fx-background-color: ffffff;" text="บันทึกการชำระ">
+            <Button alignment="CENTER" contentDisplay="TOP" layoutX="35.0" layoutY="320.0" mnemonicParsing="false" onAction="#clickCheckPayment" prefHeight="174.0" prefWidth="174.0" style="-fx-background-color: ffffff;" text="บันทึกการชำระเงิน">
                <graphic>
                   <ImageView accessibleRole="BUTTON" fitHeight="125.0" fitWidth="125.0">
                      <image>

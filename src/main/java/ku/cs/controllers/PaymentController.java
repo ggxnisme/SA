@@ -144,38 +144,34 @@ public class PaymentController {
         } catch (Exception e) {
             System.out.println(e);
         }
-        if (paidTextField.getText().equals(""))
+        if (paidTextField.getText().isEmpty())
         {
             errorLabel.setText("กรุณาใส่จำนวนเงิน");
         }
         else if (roomNumberLabel.getText().equals("")) {
             errorLabel.setText("กรุณาใส่เลขห้อง");
         }
-        if (Float.parseFloat(paidTextField.getText()) > (totalPrice - paid) || Float.parseFloat(paidTextField.getText()) < 0) {
-                errorLabel.setText("กรุณาใส่จำนวนเงินให้ถูกต้อง");
+        else if (Float.parseFloat(paidTextField.getText()) > (totalPrice - paid) || Float.parseFloat(paidTextField.getText()) < 0) {
+            errorLabel.setText("กรุณาใส่จำนวนเงินให้ถูกต้อง");
         }
         else {
             try {
-                Float.parseFloat(paidTextField.getText());
-                try {
-                    Connection con = DBConnector.getConnection();
-                    PreparedStatement preparedStatement = con.prepareStatement("UPDATE ใบแจ้งหนี้ SET ยอดเงินที่ชำระ = ?, สถานะการชำระเงิน = ? WHERE (เลขที่ห้องเช่า,วัน_เดือน_ปีที่ออกใบแจ้งหนี้) IN ( SELECT เลขที่ห้องเช่า, MAX(วัน_เดือน_ปีที่ออกใบแจ้งหนี้) FROM ใบแจ้งหนี้ WHERE เลขที่ห้องเช่า = " + roomTextField.getText() + ");");
-                    PreparedStatement preparedStatement1 = con.prepareStatement("UPDATE ลูกค้า SET ยอดค้างชำระ = ? WHERE เลขที่ห้องเช่า = " + roomTextField.getText() + ";");
-                    preparedStatement.setFloat(1, Float.parseFloat(paidTextField.getText()) + lastPaid);
-                    preparedStatement.setInt(2, checkPaidStatus(Float.parseFloat(paidTextField.getText())));
-                    preparedStatement1.setFloat(1, calPaid(Float.parseFloat(paidTextField.getText())));
-                    preparedStatement.executeUpdate();
-                    preparedStatement1.executeUpdate();
-                    paidLabel.setText(String.format("%,.2f", Float.parseFloat(paidTextField.getText())));
-                    balanceLabel.setText(String.format("%,.2f",calPaid(Float.parseFloat(paidTextField.getText()))));
-                    saveSuccessfulPane.setOpacity(1);
-                    saveSuccessfulPane.setDisable(false);
-                    errorLabel.setText("");
-                } catch (Exception e) {
-                    System.out.println(e);
-                }
-            } catch (NumberFormatException e) {
-                errorLabel.setText("กรุณาใส่ข้อมูลให้ถูกต้อง");
+                Connection con = DBConnector.getConnection();
+                PreparedStatement preparedStatement = con.prepareStatement("UPDATE ใบแจ้งหนี้ SET ยอดเงินที่ชำระ = ?, สถานะการชำระเงิน = ? WHERE (เลขที่ห้องเช่า,วัน_เดือน_ปีที่ออกใบแจ้งหนี้) IN ( SELECT เลขที่ห้องเช่า, MAX(วัน_เดือน_ปีที่ออกใบแจ้งหนี้) FROM ใบแจ้งหนี้ WHERE เลขที่ห้องเช่า = " + roomTextField.getText() + ");");
+                PreparedStatement preparedStatement1 = con.prepareStatement("UPDATE ลูกค้า SET ยอดค้างชำระ = ? WHERE เลขที่ห้องเช่า = " + roomTextField.getText() + ";");
+                preparedStatement.setFloat(1, Float.parseFloat(paidTextField.getText()) + lastPaid);
+                preparedStatement.setInt(2, checkPaidStatus(Float.parseFloat(paidTextField.getText())));
+                preparedStatement1.setFloat(1, calPaid(Float.parseFloat(paidTextField.getText())));
+                preparedStatement.executeUpdate();
+                preparedStatement1.executeUpdate();
+                paidLabel.setText(String.format("%,.2f", Float.parseFloat(paidTextField.getText())));
+                balanceLabel.setText(String.format("%,.2f",calPaid(Float.parseFloat(paidTextField.getText()))));
+                saveSuccessfulPane.setOpacity(1);
+                saveSuccessfulPane.setDisable(false);
+                errorLabel.setText("");
+            } catch (Exception e) {
+                System.out.println(e);
+                errorLabel.setText("กรุณาใส่จำนวนเงิน");
             }
 
         }
